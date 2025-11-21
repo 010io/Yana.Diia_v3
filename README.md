@@ -2,7 +2,12 @@
 
 Diia.AIContest
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 # Yana.Diia - AI for Digital Architects of Ukraine
+=======
+
+Yana.Diia - AI for Digital Architects of Ukraine
+>>>>>>> Stashed changes
 =======
 
 Yana.Diia - AI for Digital Architects of Ukraine
@@ -20,7 +25,11 @@ Core Architecture — 5-рівнева LLMOps pipeline:
 Input Modality Layer (текст, голос, скріншоти, PDF, Figma)
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 Intent Recognition & Context Extraction
+=======
+Intent Recognition \& Context Extraction
+>>>>>>> Stashed changes
 =======
 Intent Recognition \& Context Extraction
 >>>>>>> Stashed changes
@@ -47,6 +56,12 @@ Architecture Principles — Privacy by Design, Security First, Transparency
 
 Contributing, Roadmap, Support, Team, License
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+
+
+
+>>>>>>> Stashed changes
 =======
 
 
