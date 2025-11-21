@@ -1,0 +1,42 @@
+name: Update Packed Project
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:   # дозволяє запускати вручну з GitHub UI
+
+permissions:
+  contents: write   # дає токену право пушити у приватний репозиторій
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: true
+
+      - name: Generate packed file (JSON dump)
+        run: |
+          echo '{ "project": "Yana.Diia", "files": [' > _PACKED_PROJECT.json
+          FIRST=true
+          for f in $(find . -type f ! -path "./.git/*" ! -name "_PACKED_PROJECT.json"); do
+            CONTENT=$(cat "$f" | jq -Rs .)
+            if [ "$FIRST" = true ]; then
+              echo "{ \"path\": \"$f\", \"content\": $CONTENT }" >> _PACKED_PROJECT.json
+              FIRST=false
+            else
+              echo ",{ \"path\": \"$f\", \"content\": $CONTENT }" >> _PACKED_PROJECT.json
+            fi
+          done
+          echo "]}" >> _PACKED_PROJECT.json
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          git add _PACKED_PROJECT.json
+          git commit -m "Auto-update packed project" || echo "No changes to commit"
+          git push origin HEAD:main

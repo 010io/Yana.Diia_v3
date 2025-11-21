@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yana.Diia.AI | LLM-Driven Requirements Engineering</title>
+    <meta name="description" content="Provider-agnostic AI platform for Diia. LLM-driven requirements engineering, BRD generation, Diia Design System compliance, production-ready architecture.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'e-Ukraine', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7;
+            color: #e8eaed;
+            background: #1a1d21;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 40px;
+        }
+        
+        .network-animation {
+            width: 200px;
+            height: 140px;
+            margin: 0 auto 40px;
+            position: relative;
+        }
+        
+        .network-line {
+            stroke: #5f6368;
+            stroke-width: 1.5;
+            fill: none;
+            opacity: 0.4;
+            animation: pulse-line 3s ease-in-out infinite;
+        }
+        
+        .network-node {
+            fill: #5f6368;
+            animation: pulse-node 2s ease-in-out infinite;
+        }
+        
+        .network-node.primary {
+            fill: #8ab4f8;
+        }
+        
+        .network-node:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+        
+        .network-node:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+        
+        .network-node:nth-child(4) {
+            animation-delay: 0.9s;
+        }
+        
+        .network-node:nth-child(5) {
+            animation-delay: 1.2s;
+        }
+        
+        @keyframes pulse-line {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+        
+        @keyframes pulse-node {
+            0%, 100% { 
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            50% { 
+                transform: scale(1.15);
+                opacity: 1;
+            }
+        }
+        
+        h1 {
+            font-size: 2.8em;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #e8eaed;
+            letter-spacing: -0.5px;
+        }
+        
+        h2 {
+            font-size: 1.6em;
+            font-weight: 500;
+            margin: 50px 0 24px;
+            color: #e8eaed;
+            border-bottom: 1px solid #3c4043;
+            padding-bottom: 12px;
+        }
+        
+        h3 {
+            font-size: 1.2em;
+            font-weight: 500;
+            margin: 30px 0 15px;
+            color: #aecbfa;
+        }
+        
+        .tagline {
+            font-size: 1.15em;
+            color: #9aa0a6;
+            margin-bottom: 35px;
+        }
+        
+        p {
+            margin-bottom: 18px;
+            color: #bdc1c6;
+            line-height: 1.8;
+        }
+        
+        a {
+            color: #8ab4f8;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        a:hover {
+            color: #aecbfa;
+        }
+        
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #2d3135;
+            color: #e8eaed;
+            padding: 14px 28px;
+            border-radius: 6px;
+            font-weight: 500;
+            margin: 25px 0 40px;
+            border: 1px solid #3c4043;
+            transition: all 0.2s;
+        }
+        
+        .project-link:hover {
+            background: #35393d;
+            border-color: #5f6368;
+        }
+        
+        .icon {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        
+        .feature-list {
+            list-style: none;
+            margin: 24px 0;
+        }
+        
+        .feature-list li {
+            padding: 12px 0;
+            color: #bdc1c6;
+            border-bottom: 1px solid #3c4043;
+        }
+        
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .feature-label {
+            font-weight: 500;
+            color: #e8eaed;
+        }
+        
+        .problem-box {
+            background: #2d3135;
+            border: 1px solid #3c4043;
+            border-left: 3px solid #f97316;
+            padding: 20px;
+            border-radius: 4px;
+            margin: 24px 0;
+        }
+        
+        .solution-box {
+            background: #2d3135;
+            border: 1px solid #3c4043;
+            border-left: 3px solid #22c55e;
+            padding: 20px;
+            border-radius: 4px;
+            margin: 24px 0;
+        }
+        
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+            margin: 24px 0;
+        }
+        
+        .tech-item {
+            background: #2d3135;
+            padding: 10px 16px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #bdc1c6;
+            border: 1px solid #3c4043;
+            text-align: center;
+        }
+        
+        .team-list {
+            list-style: none;
+            margin: 24px 0;
+        }
+        
+        .team-list li {
+            padding: 14px 0;
+            border-bottom: 1px solid #3c4043;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .team-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .member-name {
+            font-weight: 500;
+            color: #e8eaed;
+        }
+        
+        footer {
+            margin-top: 70px;
+            padding-top: 30px;
+            border-top: 1px solid #3c4043;
+            color: #9aa0a6;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 50px 25px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .tech-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="network-animation">
+        <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+            <line class="network-line" x1="100" y1="70" x2="40" y2="30" />
+            <line class="network-line" x1="100" y1="70" x2="160" y2="30" />
+            <line class="network-line" x1="100" y1="70" x2="40" y2="110" />
+            <line class="network-line" x1="100" y1="70" x2="160" y2="110" />
+            <line class="network-line" x1="40" y1="30" x2="160" y2="30" />
+            <line class="network-line" x1="40" y1="110" x2="160" y2="110" />
+            
+            <circle class="network-node" cx="40" cy="30" r="6" />
+            <circle class="network-node" cx="160" cy="30" r="6" />
+            <circle class="network-node primary" cx="100" cy="70" r="8" />
+            <circle class="network-node" cx="40" cy="110" r="6" />
+            <circle class="network-node" cx="160" cy="110" r="6" />
+        </svg>
+    </div>
+    
+    <h1>Yana.Diia.AI</h1>
+    <p class="tagline">LLM-Driven Requirements Engineering для державних сервісів</p>
+    
+    <p style="font-size: 1.1em; margin-bottom: 30px;">
+        <strong>Provider-agnostic AI платформа</strong> для інтеграції з Diia. 
+        Специфічно спроєктована для вирішення реальних проблем: 
+        <strong>автоматизація BRD-генерації</strong>, 
+        <strong>Diia Design System compliance</strong>, 
+        <strong>LLM-as-a-Judge оцінка якості</strong>.
+    </p>
+    
+    <h2>Проблеми, які ми вирішуємо</h2>
+    
+    <div class="problem-box">
+        <h3>1. Ручна генерація BRD — затратно й неконсистентно</h3>
+        <p>Дизайнери та PM витрачають 20+ годин на створення UI flows, user stories й Figma макетів. 
+        Результати часто не узгоджені з Diia Design System.</p>
+    </div>
+    
+    <div class="solution-box">
+        <p><strong>Рішення:</strong> LLM-as-Generator автоматично створює BRD, JSON specs, Mermaid диаграми 
+        та Figma UI на основі природної мови. LLM-as-Judge перевіряє на Diia D-DS compliance.</p>
+    </div>
+    
+    <div class="problem-box">
+        <h3>2. Тестування якості UI flows — немає об'єктивних метрик</h3>
+        <p>Як виміряти "хороший" flow? BLEU, ROUGE не враховують UX, доступність, державні вимоги.</p>
+    </div>
+    
+    <div class="solution-box">
+        <p><strong>Рішення:</strong> Diia Flow Scoring Rubric (5 метрик): Flow Length, Component Compliance, 
+        Screen Saturation, Faithfulness, Explainability. Пairwise LLM-Judge порівнює варіанти.</p>
+    </div>
+    
+    <div class="problem-box">
+        <h3>3. Інтеграція з 16 державних API без централізованого управління</h3>
+        <p>Finance.AI потребує доступу до Diia SSO, fiscal.gov.ua, naz.gov.ua, United24 та ін. 
+        Кожна інтеграція — окремий проект.</p>
+    </div>
+    
+    <div class="solution-box">
+        <p><strong>Рішення:</strong> API Hub + RAG над Diia Design System. LLM генерує код для API calls 
+        на основі документації. CodeMie / AWS LiteLLM для безпечного виконання.</p>
+    </div>
+    
+    <h2>Архітектура</h2>
+    
+    <h3>LLM-Driven RE Pipeline</h3>
+    <ul class="feature-list">
+        <li><span class="feature-label">Ideation Phase:</span> Natura language → User Stories, Acceptance Criteria</li>
+        <li><span class="feature-label">LLM-as-Generator:</span> BRD → JSON specs, Mermaid, Figma designs</li>
+        <li><span class="feature-label">LLM-as-Judge:</span> Evaluate flow quality (5 metrics)</li>
+        <li><span class="feature-label">Pairwise Judge:</span> Порівняння N варіантів, вибір оптимального</li>
+        <li><span class="feature-label">Golden Dataset:</span> Pre-production evaluation benchmark</li>
+    </ul>
+    
+    <h3>Tech Stack</h3>
+    <div class="tech-grid">
+        <div class="tech-item">FastAPI</div>
+        <div class="tech-item">Next.js</div>
+        <div class="tech-item">AWS LiteLLM</div>
+        <div class="tech-item">Ollama/Gemma</div>
+        <div class="tech-item">LangChain</div>
+        <div class="tech-item">PostgreSQL</div>
+        <div class="tech-item">Redis</div>
+        <div class="tech-item">CodeMie</div>
+        <div class="tech-item">Flowise</div>
+        <div class="tech-item">Figma API</div>
+        <div class="tech-item">Jira API</div>
+        <div class="tech-item">Docker</div>
+    </div>
+    
+    <h2>MVP Roadmap (Nov 15-29)</h2>
+    <ul class="feature-list">
+        <li><strong>Nov 15-22 (80 часів):</strong> Data collection, Design System BRD, LLM-core flow, Flow evaluation</li>
+        <li><strong>Nov 23-28 (15 годин):</strong> UI Prototype (Streamlit), FastAPI backend, Integration</li>
+        <li><strong>Nov 28-29:</strong> Demo preparation</li>
+    </ul>
+    
+    <h2>Ключова перевага</h2>
+    <p style="font-size: 1.1em; color: #aecbfa; margin: 25px 0;">
+        Це не тільки демо, це <strong>production-ready архітектура</strong> для державних сервісів.
+    </p>
+    <p>
+        Система орієнтована на реальні вимоги: Diia Design System compliance, API Hub інтеграція, 
+        Responsible AI (Explainability, Red-Teaming, Bias Mitigation), MLOps готовність для production deployment.
+    </p>
+    
+    <h2>Команда</h2>
+    <ul class="team-list">
+        <li>
+            <span class="member-name">Volodymyr Seferov</span>
+            <a href="https://github.com/V2473" target="_blank">github.com/V2473</a>
+        </li>
+        <li>
+            <span class="member-name">Dariia Shevchuk</span>
+            <a href="https://github.com/dariashevchuk" target="_blank">github.com/dariashevchuk</a>
+        </li>
+        <li>
+            <span class="member-name">Natalia Ilchuk</span>
+            <a href="https://github.com/nataliiailchuk" target="_blank">github.com/nataliiailchuk</a>
+        </li>
+        <li>
+            <span class="member-name">Igor Omelchenko</span>
+            <a href="https://010io.github.io" target="_blank">010io.github.io</a>
+        </li>
+        <li>
+            <span class="member-name">Bogdan Paranitsya</span>
+            <a href="https://github.com/primarch" target="_blank">github.com/primarch</a>
+        </li>
+    </ul>
+    
+    <h2>Контакти</h2>
+    <p>
+        GitHub: <a href="https://github.com/Be-Transparent/Yana.Diia" target="_blank">Be-Transparent/Yana.Diia</a><br>
+        Discord: <a href="https://discord.gg/EwyqmDnrch" target="_blank">Diia.AIContest Server</a>
+    </p>
+    
+    <footer>
+        Diia.AIContest 2025<br>
+        LLM-Driven Requirements Engineering для GovTech<br>
+        Powered by AWS LiteLLM, Flowise, CodeMie & Diia Design System
+    </footer>
+</body>
+</html>

@@ -1,0 +1,41 @@
+name: Update Packed Project
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:   # дозволяє запускати вручну з GitHub UI
+
+permissions:
+  contents: write   # дає токену право пушити у приватний репозиторій
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: true
+
+      - name: Generate packed tree (Markdown)
+        run: |
+          echo "# Packed project tree" > _PACKED_TREE.md
+          tree -a -I '.git|_PACKED_TREE.md|_PACKED_PROJECT.txt' >> _PACKED_TREE.md
+
+      - name: Generate packed project (TXT dump)
+        run: |
+          echo "# Packed project dump" > _PACKED_PROJECT.txt
+          for f in $(find . -type f ! -path "./.git/*" ! -name "_PACKED_PROJECT.txt" ! -name "_PACKED_TREE.md"); do
+            echo "\n--- START FILE: $f ---" >> _PACKED_PROJECT.txt
+            cat "$f" >> _PACKED_PROJECT.txt
+            echo "\n--- END FILE: $f ---" >> _PACKED_PROJECT.txt
+          done
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          git add _PACKED_TREE.md _PACKED_PROJECT.txt
+          git commit -m "Auto-update packed project dump" || echo "No changes to commit"
+          git push origin HEAD:main
