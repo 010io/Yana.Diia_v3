@@ -1,0 +1,108 @@
+[
+  {
+    "id": "diia-header",
+    "name": "Diia Header",
+    "category": "layout",
+    "description": "Стандартний хедер Дії з логотипом та меню",
+    "thumbnail": "/components/header.png",
+    "props": {
+      "title": "string",
+      "showBack": "boolean"
+    }
+  },
+  {
+    "id": "diia-signature-btn",
+    "name": "Diia.Signature Button",
+    "category": "auth",
+    "description": "Кнопка підпису через Дія.Підпис",
+    "thumbnail": "/components/sign-btn.png",
+    "props": {
+      "label": "string",
+      "onSign": "function"
+    }
+  },
+  {
+    "id": "info-card",
+    "name": "Info Card",
+    "category": "content",
+    "description": "Картка з інформацією та іконкою",
+    "thumbnail": "/components/info-card.png",
+    "props": {
+      "title": "string",
+      "text": "string",
+      "icon": "string"
+    }
+  },
+  {
+    "id": "input-amount",
+    "name": "Amount Input",
+    "category": "form",
+    "description": "Поле вводу суми з валидацією",
+    "thumbnail": "/components/input-amount.png",
+    "props": {
+      "label": "string",
+      "currency": "string"
+    }
+  },
+  {
+    "id": "bank-select",
+    "name": "Bank Selector",
+    "category": "form",
+    "description": "Вибір банку для виплати",
+    "thumbnail": "/components/bank-select.png",
+    "props": {
+      "banks": "array"
+    }
+  },
+  {
+    "id": "success-banner",
+    "name": "Success Banner",
+    "category": "feedback",
+    "description": "Повідомлення про успішну операцію",
+    "thumbnail": "/components/success.png",
+    "props": {
+      "title": "string",
+      "message": "string"
+    }
+  },
+  {
+    "id": "warning-alert",
+    "name": "Warning Alert",
+    "category": "feedback",
+    "description": "Попередження для користувача",
+    "thumbnail": "/components/warning.png",
+    "props": {
+      "message": "string"
+    }
+  },
+  {
+    "id": "stepper",
+    "name": "Process Stepper",
+    "category": "navigation",
+    "description": "Індикатор кроків процесу",
+    "thumbnail": "/components/stepper.png",
+    "props": {
+      "steps": "array",
+      "current": "number"
+    }
+  },
+  {
+    "id": "footer",
+    "name": "Diia Footer",
+    "category": "layout",
+    "description": "Стандартний футер з контактами",
+    "thumbnail": "/components/footer.png",
+    "props": {}
+  },
+  {
+    "id": "upload-docs",
+    "name": "Document Upload",
+    "category": "form",
+    "description": "Завантаження документів (PDF/JPG)",
+    "thumbnail": "/components/upload.png",
+    "props": {
+      "maxSize": "number",
+      "types": "array"
+    }
+  }
+]
