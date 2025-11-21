@@ -1,0 +1,14 @@
+* Emacs integration for Yana.Diia
+
+Ця папка містить допоміжні скрипти, локальні налаштування і приклади Emacs/llm інтеграцій до цього проекту.
+
+** Функціонал
+- Автоматичне автоформатування і лінтинг коду через eslint/prettier/flycheck
+- Інтеграція з llm.el (GNU LLM Package)
+- Приклад запуску ollama чи openai chat із Emacs Magit/Forge
+- Magit friendly Git-flow
+
+** Швидкий старт
+- Відкрий цей проект у Emacs (project.el/projectile)
+- Використовуй Magit для git-операцій
+- enable`flycheck-mode`, `eglot-mode` (language server), і (за бажання) `llm.el`

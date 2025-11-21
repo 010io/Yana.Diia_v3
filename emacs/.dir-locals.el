@@ -1,0 +1,5 @@
+;; Декларує локальні змінні для кращої інтеграції (інденти, стилі, автоenv)
+((nil . ((fill-column . 100)
+         (indent-tabs-mode . nil)
+         (tab-width . 2)
+         (eval . (setenv "NODE_ENV" "development")))))

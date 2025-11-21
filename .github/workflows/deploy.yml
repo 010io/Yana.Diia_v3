@@ -1,0 +1,73 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      # Перевірка чи є package.json
+      - name: Check for package.json
+        id: check_package
+        run: |
+          if [ -f "package.json" ]; then
+            echo "has_package=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_package=false" >> $GITHUB_OUTPUT
+          fi
+      
+      # Якщо є package.json — збираємо Next.js/React
+      - name: Setup Node.js
+        if: steps.check_package.outputs.has_package == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install dependencies
+        if: steps.check_package.outputs.has_package == 'true'
+        run: npm install
+      
+      - name: Build
+        if: steps.check_package.outputs.has_package == 'true'
+        env:
+          NEXT_PUBLIC_API_URL: ${{ secrets.LITELLM_ENDPOINT }}
+        run: |
+          npm run build
+          touch out/.nojekyll
+      
+      # Визначаємо звідки брати файли
+      - name: Determine source path
+        id: source
+        run: |
+          if [ -d "out" ]; then
+            echo "path=./out" >> $GITHUB_OUTPUT
+          elif [ -d "docs" ]; then
+            echo "path=./docs" >> $GITHUB_OUTPUT
+          else
+            echo "path=." >> $GITHUB_OUTPUT
+          fi
+      
+      # Налаштування Pages
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      
+      # Upload артефакту
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ steps.source.outputs.path }}
+      
+      # Деплой
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4

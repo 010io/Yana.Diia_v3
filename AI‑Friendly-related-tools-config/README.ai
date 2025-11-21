@@ -1,0 +1,37 @@
+# AI-friendly tooling for Yana.Diia - Цей файл — для документації, конфігурації та usage AI-аналітичних/автоматизуючих інструментів репозиторію.
+
+Ця папка містить лише конфігураційні файли та інструменти для автоматичного AI-аналізу, пакування або генерації аналітики по репозиторію.
+Тут НЕ містяться промпти бізнес-логіки чи інструкції для LLM-агентів/функцій самого продукту Yana.Diia.AI!
+
+## Вміст:
+- repomix.config.js — основний конфіг для repomix
+- llm-configs/ — зразки .env та JSON для інтеграції різних LLM (OpenAI, Ollama, Claude)
+- auto-docs/ — скрипти для автоматизації генерації документації/TOC/README
+- tools/ — AI-скрипти для майбутніх інтеграцій commit/pull-request/summary
+- output/ — результати пакування та згортання репозиторію
+
+###
+AI-friendly/
+├── README.md\ai
+├── repomix.config.js
+├── output/
+│   ├── _PACKED_PROJECT.xml
+│   ├── _PACKED_PROJECT.md
+│   ├── _PACKED_PROJECT.yaml
+│   └── _DIRECTORY_TREE.txt
+├── llm-configs/
+│   ├── openai.env.example
+│   ├── ollama.json
+│   └── claude.env.example
+├── auto-docs/
+│   ├── generate-readme.sh
+│   ├── update-changelog.py
+│   └── toc-generator.js
+├── tools/
+│   ├── commit-message-gen.js
+│   ├── pr-description-gen.js
+│   └── repo-summary-builder.py
+
+№№№№
+Базовий опис проєкту шукай у ../README.md
+
