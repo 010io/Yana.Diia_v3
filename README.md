@@ -1,4 +1,5 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 # 🇺🇦 Yana.Diia - AI для Цифрових Архітекторів України
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
@@ -399,6 +400,8 @@ Contributions are welcome! Please read [CONTRIBUTING.md](./CONTRIBUTING.md) firs
 
 Made with ❤️ for Ukraine's Digital Transformation
 =======
+=======
+>>>>>>> Stashed changes
 # Yana.Diia\_v3
 
 Diia.AIContest
@@ -442,4 +445,7 @@ Contributing, Roadmap, Support, Team, License
 
 
 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
