@@ -1,0 +1,22 @@
+=== ШВИДКІ КОМАНДИ ДЛЯ VM ===
+
+1. PUSH В GITHUB (на VM з Git):
+   cd Yana.Diia_v3
+   git add backend/ .kiro/ .gitignore
+   git commit -m "feat(backend): production-ready architecture"
+   git push origin main
+
+2. SETUP НА VM:
+   cd backend
+   python -m venv venv
+   source venv/bin/activate  # Linux
+   pip install -r requirements.txt
+   cp .env.example .env
+   # Відредагуй .env з реальними credentials
+   python main.py
+
+3. ПЕРЕВІРКА:
+   curl http://localhost:8001/health
+   curl http://localhost:8001/api/status
+
+=== ГОТОВО! ===

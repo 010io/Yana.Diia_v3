@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "mode": "hackathon_sprint",
+  "project": "Yana.Diia.AI + Finance.AI",
+  "competition": "Diia.AI Contest 2025",
+  "team": "Be Transparent (010io)",
+  "deadline": "2025-11-29T23:59:59+02:00",
+  "daysRemaining": 8,
+  
+  "mission": {
+    "primary": "Win Diia.AI Contest by demonstrating autonomous GovTech UX pipeline",
+    "secondary": "Qualify for Google Antigravity 2025 showcase",
+    "tagline": "Lego-Diia: Build government services like LEGO, validated by AI"
+  },
+  
+  "priorities": {
+    "critical": [
+      {
+        "feature": "Lego Constructor UI",
+        "description": "3-panel drag-and-drop interface with Diia component library",
+        "status": "in-progress",
+        "blockers": [],
+        "demoValue": 10
+      },
+      {
+        "feature": "AI Debate Chamber",
+        "description": "7 agents (Lesya, Yaroslav, Zelenskyy, Klitschko, NBU, Boris, Usyk) with Ukrainian humor",
+        "status": "not-started",
+        "blockers": ["script generator needs testing"],
+        "demoValue": 10
+      },
+      {
+        "feature": "BRD Parser + Flow Generator",
+        "description": "LLM-powered parsing and multi-variant generation",
+        "status": "done",
+        "blockers": [],
+        "demoValue": 8
+      }
+    ],
+    "high": [
+      {
+        "feature": "Quantum-Inspired Optimizer",
+        "description": "Simulated annealing visualization with energy graph",
+        "status": "planned",
+        "demoValue": 7
+      },
+      {
+        "feature": "Glagolitic Crypto + Blockchain",
+        "description": "Ukrainian cultural crypto with Sepolia testnet proof",
+        "status": "done",
+        "demoValue": 9
+      }
+    ],
+    "optional": [
+      {
+        "feature": "Psychoacoustic UX",
+        "description": "Sound-based UI with Ukrainian phonemes",
+        "status": "skip",
+        "demoValue": 5
+      },
+      {
+        "feature": "DNA Self-Healing",
+        "description": "Bio-inspired error correction",
+        "status": "skip",
+        "demoValue": 4
+      }
+    ]
+  },
+  
+  "constraints": {
+    "timePerFeature": "4-8 hours max",
+    "codeQuality": "MVP-grade (not production)",
+    "testing": "Manual only (skip unit tests)",
+    "documentation": "Auto-generated via Antigravity Artifacts"
+  },
+  
+  "techStack": {
+    "framework": "Next.js 16 (App Router)",
+    "styling": "Tailwind CSS 4",
+    "language": "TypeScript (strict)",
+    "llm": "Gemini 3 Flash (dev), Gemini 3 Pro (complex logic)",
+    "mockMode": true,
+    "comment": "Use MockLLMProvider to avoid token costs during development"
+  },
+  
+  "designSystem": {
+    "source": "Diia Design System (diia-open-source)",
+    "colors": {
+      "primary": "#000000",
+      "secondary": "#ffffff",
+      "accent": "#67C3F3"
+    },
+    "fonts": ["e-Ukraine", "Inter"],
+    "language": "Ukrainian UI, English code"
+  },
+  
+  "criticalRules": [
+    "REUSE over REINVENT: Use existing Diia components from diia-open-source",
+    "SPEED over PERFECTION: Ship working MVP, polish later",
+    "DEMO over DOCS: Focus on live demo experience, not extensive documentation",
+    "MOCK over MONEY: Use MockLLMProvider (0 tokens) for all development",
+    "SECURE by DEFAULT: Never commit .env files, enforce WCAG 2.1 AA"
+  ],
+  
+  "ignoreForNow": [
+    "Unit tests (Jest, Vitest)",
+    "E2E tests (Playwright, Cypress)",
+    "Complex refactoring",
+    "Performance optimization (beyond Core Web Vitals)",
+    "Extensive error handling",
+    "Multi-language support (only Ukrainian for now)",
+    "Mobile-specific optimizations"
+  ],
+  
+  "demoDay": {
+    "date": "2025-11-29",
+    "duration": "5 minutes",
+    "flow": [
+      "Problem Statement (30s)",
+      "Live Demo: Lego Constructor (60s)",
+      "Live Demo: AI Debate Chamber (90s)",
+      "Cultural Innovation: Glagolitic (30s)",
+      "Impact & Q&A (90s)"
+    ],
+    "fallback": "Pre-recorded video if live demo fails"
+  },
+  
+  "keyMetrics": {
+    "targetScore": 90,
+    "criteria": {
+      "innovation": 30,
+      "technicalExecution": 30,
+      "uxDesign": 20,
+      "impactForDiia": 20
+    }
+  },
+  
+  "references": {
+    "contest": "https://diia.ai/contest",
+    "case5": "Yana.Diia - AI assistant for user journey automation",
+    "codebase": "https://github.com/Be-Transparent/Yana.Diia",
+    "diiaOpenSource": "https://github.com/diia-open-source"
+  },
+  
+  "agentInstructions": {
+    "onEveryTask": "Check this file first. Prioritize 'critical' features. Skip 'ignoreForNow' items.",
+    "onDecision": "Ask: Does this help win Demo Day? If not 'critical', defer.",
+    "onError": "Fix fast, don't over-engineer. Use mocks if API fails.",
+    "onCompletion": "Update PROJECT_STATUS.md, create walkthrough artifact, record video."
+  }
+}
