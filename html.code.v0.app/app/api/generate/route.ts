@@ -1,4 +1,5 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 if (!response.ok) {
   const error = await response.json()
   return Response.json({ error: error.detail || 'Generation failed' }, { status: response.status })
@@ -24,6 +25,8 @@ return Response.json(data)
   )
 }
 =======
+=======
+>>>>>>> Stashed changes
 export async function POST(req: Request) {
   try {
     const { brd, numVariants = 3 } = await req.json()
@@ -72,5 +75,8 @@ export async function POST(req: Request) {
       { status: 503 }
     )
   }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 }
