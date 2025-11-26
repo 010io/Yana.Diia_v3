@@ -83,9 +83,11 @@ async def health_check():
 
 
 # Import routes
-from routes import generate
+from routes import generate, registry
 
 app.include_router(generate.router, prefix="/api", tags=["generate"])
+app.include_router(registry.router, prefix="/api", tags=["registry"])
+
 
 
 if __name__ == "__main__":

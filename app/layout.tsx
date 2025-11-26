@@ -1,21 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { DevPanel } from "@/components/dev-panel";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { DarkModeToggle } from "@/components/DarkModeToggle";
+import { MobileNav } from "@/components/mobile-nav";
 
 export const metadata: Metadata = {
-  title: "Yana.Diia.AI",
-  description: "Autonomous UX/UI Generation Platform for Ukraine",
+  title: "Yana.Diia | AI-Асистент для Державних Послуг",
+  description: "Provider-agnostic AI платформа для автоматизації дизайну цифрових послуг Дія",
+  generator: "Be-Transparent Team",
+  authors: [{ name: "Volodymyr Seferov" }, { name: "Igor Omelchenko" }],
 };
 
 export default function RootLayout({
@@ -25,11 +18,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="uk">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+      </head>
+      <body className="font-['Inter'] antialiased" suppressHydrationWarning>
         {children}
         <DevPanel />
+        <DarkModeToggle />
+        <MobileNav />
       </body>
     </html>
   );

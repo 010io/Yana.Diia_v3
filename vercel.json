@@ -1,0 +1,35 @@
+{
+    "buildCommand": "npm run build",
+    "devCommand": "npm run dev",
+    "installCommand": "npm install",
+    "framework": "nextjs",
+    "outputDirectory": ".next",
+    "ignoreCommand": "git diff --quiet HEAD^ HEAD ./backend ./blockchain ./ml",
+    "rewrites": [
+        {
+            "source": "/(.*)",
+            "destination": "/"
+        }
+    ],
+    "headers": [
+        {
+            "source": "/(.*)",
+            "headers": [
+                {
+                    "key": "X-Frame-Options",
+                    "value": "DENY"
+                },
+                {
+                    "key": "X-Content-Type-Options",
+                    "value": "nosniff"
+                }
+            ]
+        }
+    ],
+    "env": {
+        "NEXT_PUBLIC_APP_URL": "https://yana-diia-v3.vercel.app",
+        "NODE_ENV": "production",
+        "LLM_MODE": "mock",
+        "NEXT_PUBLIC_API_URL": "/api"
+    }
+}
