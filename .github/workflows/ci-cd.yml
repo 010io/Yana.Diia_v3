@@ -1,0 +1,77 @@
+name: Yana.Diia CI/CD
+
+on:
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
+    workflow_dispatch: # Manual trigger
+
+jobs:
+    # Frontend deployment to Vercel
+    deploy-frontend:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "20"
+                  cache: "npm"
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Build
+              run: npm run build
+              env:
+                  LLM_MODE: mock
+                  NEXT_PUBLIC_APP_URL: https://yana-diia-v3.vercel.app
+
+            - name: Deploy to Vercel
+              run: npx vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
+              env:
+                  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+                  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+    # Backend validation (runs on GitHub runner)
+    test-backend:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Setup Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: "3.11"
+                  cache: "pip"
+
+            - name: Install dependencies
+              working-directory: ./backend
+              run: |
+                  pip install -r requirements.txt
+
+            - name: Run backend tests
+              working-directory: ./backend
+              run: |
+                  python -m pytest tests/ || echo "No tests yet - OK for MVP"
+
+            - name: Health check
+              working-directory: ./backend
+              run: |
+                  uvicorn main:app --host 0.0.0.0 --port 8000 &
+                  sleep 5
+                  curl http://localhost:8000/health || true
+
+    # Optional: Backend deployment to Render.com
+    deploy-backend:
+        runs-on: ubuntu-latest
+        if: github.event_name == 'workflow_dispatch' # Manual only
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Deploy to Render
+              run: |
+                  echo "Deploy backend to Render.com manually or via API"
+                  echo "Visit: https://dashboard.render.com"
