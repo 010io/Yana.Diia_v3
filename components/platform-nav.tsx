@@ -10,7 +10,7 @@ export function PlatformNav() {
     { href: '/pipeline', label: 'Pipeline', icon: '🔄' },
     { href: '/evaluation', label: 'Evaluation', icon: '⚖️' },
     { href: '/quantum', label: 'Quantum', icon: '🌌' },
-    { href: '/blockchain', label: 'Blockchain', icon: '🔐' }
+    { href: '/audit-trail', label: 'Audit Trail', icon: '🔐' }
   ]
 
   return (

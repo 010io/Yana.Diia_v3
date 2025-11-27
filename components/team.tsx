@@ -4,46 +4,39 @@ import { Github, Mail, Linkedin } from 'lucide-react'
 
 const teamMembers = [
   {
-    name: 'Volodymyr Seferov',
-    role: 'Капітан, Backend/DevOps',
-    email: 'vovasef_ai@hackathon',
-    github: 'V2473',
-    description: 'Full-stack розробник, AWS/Vercel, FastAPI архітектура'
-  },
-  {
     name: 'Наталія Ільчук',
-    role: 'AI Спеціалістка, PM',
+    role: 'Капітан & Product Manager',
     email: 'ilchuknatalia92_ai@hackathon',
     github: 'nataliiailchuk',
     description: 'AI-архітекторка систем, продакт-аналітика, LLM інтеграції'
   },
   {
     name: 'Ігор Омельченко',
-    role: 'Backend-розробник',
+    role: 'AI Архітектор, Промпт-інженер',
     email: 'igoromelchenkooleksandrovich_ai@hackathon',
     github: '010io',
-    description: 'Python/FastAPI експерт, API інтеграції, база даних'
+    description: 'AI архітектура, промпт-інженерія, LangChain, RAG системи'
+  },
+  {
+    name: 'Богдан Параниця',
+    role: 'AI Lead, Agent/HTML Developer',
+    email: 'bogdan@hackathon',
+    github: 'susanin',
+    description: 'AI агенти, HTML генерація, автоматизація розробки'
+  },
+  {
+    name: 'Володимир Сеферов',
+    role: 'DevOps, Base Generator',
+    email: 'vovasef_ai@hackathon',
+    github: 'V2473',
+    description: 'DevOps, AWS/Vercel, FastAPI архітектура, Base Generator (github.com/V2473/BeTransparent)'
   },
   {
     name: 'Дарія Шевчук',
-    role: 'Frontend-розробник, QA',
+    role: 'Frontend/QA Engineer',
     email: 'dashashevchuk2015_ai@hackathon',
     github: 'dariashevchuk',
     description: 'React/Next.js, UI/UX, тестування, мануальний QA'
-  },
-  {
-    name: 'Bogdan Paranytsia',
-    role: 'Senior Developer',
-    email: 'bogdan@example.com',
-    github: 'susanin',
-    description: 'DevOps, інфраструктура, масштабування'
-  },
-  {
-    name: '_ primarch_',
-    role: 'Lead Developer, Architecture',
-    email: 'primarch@example.com',
-    github: 'primarch',
-    description: 'Система архітектури, LLM агенти, AI моделі'
   }
 ]
 

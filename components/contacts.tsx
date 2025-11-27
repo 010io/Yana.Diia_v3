@@ -14,23 +14,23 @@ export default function Contacts() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            <a href="https://github.com/V2473/BeTransparent" target="_blank" rel="noopener noreferrer" className="glass p-6 rounded-xl hover:bg-white/10 transition flex items-center gap-4 group">
+            <a href="https://github.com/010-io/Yana.Diia_v3" target="_blank" rel="noopener noreferrer" className="glass p-6 rounded-xl hover:bg-white/10 transition flex items-center gap-4 group">
               <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary/30 to-accent/30 flex items-center justify-center group-hover:from-primary/50 group-hover:to-accent/50 transition">
                 <Github className="w-6 h-6 text-primary" />
               </div>
               <div>
                 <p className="font-semibold text-foreground">GitHub</p>
-                <p className="text-sm text-muted-foreground">github.com/V2473/BeTransparent</p>
+                <p className="text-sm text-muted-foreground">github.com/010-io/Yana.Diia_v3</p>
               </div>
             </a>
 
-            <a href="mailto:team@yandia.gov.ua" className="glass p-6 rounded-xl hover:bg-white/10 transition flex items-center gap-4 group">
+            <a href="https://t.me/yanadiia" target="_blank" rel="noopener noreferrer" className="glass p-6 rounded-xl hover:bg-white/10 transition flex items-center gap-4 group">
               <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-accent/30 to-primary/30 flex items-center justify-center group-hover:from-accent/50 group-hover:to-primary/50 transition">
-                <Mail className="w-6 h-6 text-accent" />
+                <MessageCircle className="w-6 h-6 text-accent" />
               </div>
               <div>
-                <p className="font-semibold text-foreground">Email</p>
-                <p className="text-sm text-muted-foreground">team@yandia.gov.ua</p>
+                <p className="font-semibold text-foreground">Telegram</p>
+                <p className="text-sm text-muted-foreground">@yanadiia</p>
               </div>
             </a>
 

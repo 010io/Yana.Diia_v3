@@ -17,7 +17,7 @@ const NAV_ITEMS = [
   { id: 'debate', href: '/debate', label: 'Дебати', icon: MessageSquare, shortLabel: 'Chat' },
   { id: 'evaluation', href: '/evaluation', label: 'Оцінка', icon: Scale, shortLabel: 'Eval' },
   { id: 'quantum', href: '/quantum', label: 'Quantum', icon: Atom, shortLabel: 'Q' },
-  { id: 'blockchain', href: '/blockchain', label: 'Blockchain', icon: Shield, shortLabel: 'BC' },
+  { id: 'audit-trail', href: '/audit-trail', label: 'Audit Trail', icon: Shield, shortLabel: 'AT' },
 ]
 
 type NavPosition = 'top' | 'bottom' | 'left' | 'right'

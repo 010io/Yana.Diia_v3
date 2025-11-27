@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Github, Linkedin, Mail } from 'lucide-react'
+import { Github, Linkedin, MessageCircle } from 'lucide-react'
 
 export default function Footer() {
   return (
@@ -27,7 +27,7 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li><Link href="#" className="text-muted-foreground hover:text-accent transition">Про Яну</Link></li>
               <li><Link href="#" className="text-muted-foreground hover:text-accent transition">Документація</Link></li>
-              <li><Link href="https://github.com/V2473/BeTransparent" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-accent transition">GitHub</Link></li>
+              <li><Link href="https://github.com/010-io/Yana.Diia_v3" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-accent transition">GitHub</Link></li>
             </ul>
           </div>
 
@@ -36,21 +36,21 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li><Link href="#team" className="text-muted-foreground hover:text-accent transition">Be Transparent</Link></li>
               <li><Link href="#" className="text-muted-foreground hover:text-accent transition">Контакти</Link></li>
-              <li><Link href="https://github.com/V2473/BeTransparent" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-accent transition">GitHub Команди</Link></li>
+              <li><Link href="https://github.com/010-io/Yana.Diia_v3" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-accent transition">GitHub Команди</Link></li>
             </ul>
           </div>
 
           <div className="space-y-4">
             <h4 className="font-semibold text-foreground">Слідкуйте</h4>
             <div className="flex gap-3">
-              <Link href="https://github.com/V2473/BeTransparent" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-lg glass hover:bg-white/20 hover:border-white/30 flex items-center justify-center transition">
+              <Link href="https://github.com/010-io/Yana.Diia_v3" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-lg glass hover:bg-white/20 hover:border-white/30 flex items-center justify-center transition">
                 <Github className="w-4 h-4 text-foreground" />
               </Link>
-              <Link href="#" className="w-8 h-8 rounded-lg glass hover:bg-white/20 hover:border-white/30 flex items-center justify-center transition">
-                <Linkedin className="w-4 h-4 text-foreground" />
+              <Link href="https://t.me/yanadiia" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-lg glass hover:bg-white/20 hover:border-white/30 flex items-center justify-center transition">
+                <MessageCircle className="w-4 h-4 text-foreground" />
               </Link>
-              <Link href="mailto:team@yandia.gov.ua" className="w-8 h-8 rounded-lg glass hover:bg-white/20 hover:border-white/30 flex items-center justify-center transition">
-                <Mail className="w-4 h-4 text-foreground" />
+              <Link href="https://linkedin.com/company/yana-diia" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-lg glass hover:bg-white/20 hover:border-white/30 flex items-center justify-center transition">
+                <Linkedin className="w-4 h-4 text-foreground" />
               </Link>
             </div>
           </div>

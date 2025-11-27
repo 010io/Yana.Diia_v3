@@ -37,7 +37,7 @@ export default function Header() {
 
         <div className="flex items-center gap-3">
           <Link
-            href="https://github.com/V2473/BeTransparent"
+            href="https://github.com/010-io/Yana.Diia_v3"
             target="_blank"
             rel="noopener noreferrer"
             className="p-2 rounded-lg hover:bg-white/10 transition"

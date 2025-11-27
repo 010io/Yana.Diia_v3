@@ -68,9 +68,9 @@ const navStructure = {
       related: ['blockchain', 'pipeline']
     },
     { 
-      id: 'blockchain', 
-      href: '/blockchain', 
-      label: 'Blockchain', 
+      id: 'audit-trail', 
+      href: '/audit-trail', 
+      label: 'Audit Trail', 
       icon: Shield,
       description: 'Глаголична криптографія',
       related: ['quantum', 'evaluation']
