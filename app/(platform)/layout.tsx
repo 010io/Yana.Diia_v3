@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "../globals.css";
-import { SmartNav } from "@/components/smart-nav";
+import { UnifiedNav } from "@/components/unified-nav";
 
 export const metadata: Metadata = {
     title: "Yana.Diia.AI - Platform",
@@ -14,8 +14,9 @@ export default function PlatformLayout({
 }>) {
     return (
         <div className="min-h-screen bg-black text-white">
-            <SmartNav />
-            <main className="pt-16 pb-20 md:pb-0">
+            <UnifiedNav />
+            {/* Responsive padding based on nav position */}
+            <main className="pt-16 pb-20 md:pb-0 md:pt-16">
                 {children}
             </main>
         </div>

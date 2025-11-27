@@ -184,3 +184,16 @@
     padding-right: 1.5rem;
   }
 }
+
+
+/* Safe Area for PWA/Mobile */
+.safe-area-top { padding-top: env(safe-area-inset-top); }
+.safe-area-bottom { padding-bottom: env(safe-area-inset-bottom); }
+.safe-area-left { padding-left: env(safe-area-inset-left); }
+.safe-area-right { padding-right: env(safe-area-inset-right); }
+
+/* Navigation position helpers */
+.nav-top { padding-top: 3.5rem; }
+.nav-bottom { padding-bottom: 3.5rem; }
+.nav-left { padding-left: 4rem; }
+.nav-right { padding-right: 4rem; }
