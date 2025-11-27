@@ -1,0 +1,277 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2025-11-23",
+  "sources": {
+    "diia": {
+      "baseURL": "https://diia.gov.ua",
+      "services": [
+        {
+          "id": "tepla-zyma",
+          "name": "Тепла зима",
+          "url": "https://diia.gov.ua/services/tepla-zyma",
+          "category": "social-support",
+          "description": "Допомога на оплату комунальних послуг",
+          "screens": [
+            {
+              "id": "tz-auth",
+              "name": "Автентифікація",
+              "components": [
+                {
+                  "id": "tz-auth-btn",
+                  "name": "Diia.Signature",
+                  "type": "button",
+                  "category": "auth",
+                  "apiEndpoints": ["https://id.diia.gov.ua/sign"],
+                  "props": {
+                    "label": "Увійти через Дія.Підпис",
+                    "onSign": "function"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "tz-form",
+              "name": "Заповнення даних",
+              "components": [
+                {
+                  "id": "tz-address-input",
+                  "name": "Address Input",
+                  "type": "input",
+                  "category": "form",
+                  "props": {
+                    "label": "Адреса проживання",
+                    "validation": "required"
+                  }
+                },
+                {
+                  "id": "tz-amount-input",
+                  "name": "Amount Input",
+                  "type": "input",
+                  "category": "form",
+                  "props": {
+                    "label": "Сума витрат на комуналку",
+                    "currency": "UAH"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "tz-success",
+              "name": "Результат",
+              "components": [
+                {
+                  "id": "tz-success-banner",
+                  "name": "Success Banner",
+                  "type": "feedback",
+                  "category": "feedback",
+                  "props": {
+                    "title": "Заявку подано",
+                    "message": "Очікуйте на розгляд протягом 5 робочих днів"
+                  }
+                }
+              ]
+            }
+          ],
+          "apiIntegrations": [
+            {
+              "name": "Diia.ID",
+              "endpoint": "https://id.diia.gov.ua/oauth/token",
+              "purpose": "Автентифікація"
+            },
+            {
+              "name": "Address Registry",
+              "endpoint": "https://api.nais.gov.ua/api/public/v1/edrer/search",
+              "purpose": "Валідація адреси"
+            }
+          ]
+        },
+        {
+          "id": "dopomoga-vpo",
+          "name": "Допомога ВПО",
+          "url": "https://diia.gov.ua/services/dopomoga-vpo",
+          "category": "social-support",
+          "description": "Фінансова допомога внутрішньо переміщеним особам",
+          "screens": [
+            {
+              "id": "vpo-auth",
+              "name": "Автентифікація",
+              "components": [
+                {
+                  "id": "vpo-auth-btn",
+                  "name": "Diia.Signature",
+                  "type": "button",
+                  "category": "auth"
+                }
+              ]
+            },
+            {
+              "id": "vpo-status",
+              "name": "Перевірка статусу ВПО",
+              "components": [
+                {
+                  "id": "vpo-status-card",
+                  "name": "Status Card",
+                  "type": "info",
+                  "category": "content",
+                  "apiEndpoints": ["https://api.nais.gov.ua/api/public/v1/idp/status"]
+                }
+              ]
+            },
+            {
+              "id": "vpo-bank",
+              "name": "Банківські реквізити",
+              "components": [
+                {
+                  "id": "vpo-bank-select",
+                  "name": "Bank Selector",
+                  "type": "select",
+                  "category": "form",
+                  "props": {
+                    "banks": "array"
+                  }
+                },
+                {
+                  "id": "vpo-iban-input",
+                  "name": "IBAN Input",
+                  "type": "input",
+                  "category": "form",
+                  "props": {
+                    "label": "IBAN",
+                    "validation": "iban"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "fop-registration",
+          "name": "Реєстрація ФОП",
+          "url": "https://diia.gov.ua/services/fop-registration",
+          "category": "business",
+          "description": "Онлайн реєстрація фізичної особи-підприємця",
+          "screens": [
+            {
+              "id": "fop-auth",
+              "name": "Автентифікація",
+              "components": [
+                {
+                  "id": "fop-auth-btn",
+                  "name": "Diia.Signature",
+                  "type": "button",
+                  "category": "auth"
+                }
+              ]
+            },
+            {
+              "id": "fop-kveds",
+              "name": "Вибір КВЕДів",
+              "components": [
+                {
+                  "id": "fop-kved-select",
+                  "name": "KVED Selector",
+                  "type": "multiselect",
+                  "category": "form",
+                  "props": {
+                    "kveds": "array",
+                    "maxSelection": 10
+                  }
+                }
+              ]
+            },
+            {
+              "id": "fop-taxation",
+              "name": "Система оподаткування",
+              "components": [
+                {
+                  "id": "fop-tax-radio",
+                  "name": "Tax System Radio",
+                  "type": "radio",
+                  "category": "form",
+                  "props": {
+                    "options": ["Загальна", "Спрощена група 1", "Спрощена група 2", "Спрощена група 3"]
+                  }
+                }
+              ]
+            }
+          ],
+          "apiIntegrations": [
+            {
+              "name": "ЄДР",
+              "endpoint": "https://api.opendatabot.ua/api/v2/company/register",
+              "purpose": "Реєстрація в ЄДР"
+            },
+            {
+              "name": "ДПС",
+              "endpoint": "https://api.tax.gov.ua/api/v1/fop/register",
+              "purpose": "Реєстрація платника податків"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "componentLibrary": {
+    "auth": [
+      {
+        "id": "diia-signature-btn",
+        "name": "Diia.Signature Button",
+        "description": "Кнопка підпису через Дія.Підпис",
+        "props": {
+          "label": "string",
+          "onSign": "function"
+        },
+        "usage": "Автентифікація користувача"
+      }
+    ],
+    "form": [
+      {
+        "id": "input-amount",
+        "name": "Amount Input",
+        "description": "Поле вводу суми з валидацією",
+        "props": {
+          "label": "string",
+          "currency": "string",
+          "min": "number",
+          "max": "number"
+        }
+      },
+      {
+        "id": "bank-select",
+        "name": "Bank Selector",
+        "description": "Вибір банку для виплати",
+        "props": {
+          "banks": "array"
+        }
+      },
+      {
+        "id": "iban-input",
+        "name": "IBAN Input",
+        "description": "Поле вводу IBAN з валидацією",
+        "props": {
+          "label": "string",
+          "validation": "iban"
+        }
+      }
+    ],
+    "feedback": [
+      {
+        "id": "success-banner",
+        "name": "Success Banner",
+        "description": "Повідомлення про успішну операцію",
+        "props": {
+          "title": "string",
+          "message": "string"
+        }
+      },
+      {
+        "id": "warning-alert",
+        "name": "Warning Alert",
+        "description": "Попередження для користувача",
+        "props": {
+          "message": "string"
+        }
+      }
+    ]
+  }
+}
