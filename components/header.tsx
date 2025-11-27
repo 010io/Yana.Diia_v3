@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Github } from 'lucide-react'
+import { ThemeToggle } from '@/components/theme-toggle'
 
 export default function Header() {
   return (
@@ -36,6 +37,7 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
+          <ThemeToggle />
           <Link
             href="https://github.com/010-io/Yana.Diia_v3"
             target="_blank"
@@ -46,7 +48,8 @@ export default function Header() {
           </Link>
           <Link href="/lego">
             <Button className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground shadow-lg shadow-primary/20 rounded-lg">
-              Розпоч</Button>
+              Розпочати
+            </Button>
           </Link>
         </div>
       </div>
