@@ -11,6 +11,8 @@ export default function LegoPage() {
   const { items: canvasItems, addItem, removeItem, updateItem } = useLegoStore()
   const [draggedItem, setDraggedItem] = useState<string | null>(null)
   const [selectedItem, setSelectedItem] = useState<any | null>(null)
+  const [isExecuting, setIsExecuting] = useState(false)
+  const [executionResult, setExecutionResult] = useState<any>(null)
 
   const handleDragStart = (id: string) => {
     setDraggedItem(id)
@@ -57,6 +59,38 @@ export default function LegoPage() {
 
   const handleReorder = () => {
     // TODO: Implement reordering logic
+  }
+
+  const handleExecute = async () => {
+    setIsExecuting(true)
+    setExecutionResult(null)
+
+    try {
+      const response = await fetch('/api/lego-execute', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          blocks: canvasItems,
+          userId: 'demo_user',
+          formData: {
+            fullName: 'Іванов Іван Іванович',
+            address: 'м. Київ, вул. Хрещатик, 1',
+            businessType: 'Роздрібна торгівля',
+            taxId: '1234567890'
+          }
+        })
+      })
+
+      const result = await response.json()
+      setExecutionResult(result)
+      
+      // Show result modal
+      alert(JSON.stringify(result, null, 2))
+    } catch (error: any) {
+      alert('Помилка виконання: ' + error.message)
+    } finally {
+      setIsExecuting(false)
+    }
   }
 
   return (
@@ -106,6 +140,8 @@ export default function LegoPage() {
             onSelect={handleSelect}
             onReorder={handleReorder}
             selectedItem={selectedItem}
+            onExecute={handleExecute}
+            isExecuting={isExecuting}
           />
         </div>
         

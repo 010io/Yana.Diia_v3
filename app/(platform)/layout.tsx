@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "../globals.css";
+import { SmartNav } from "@/components/smart-nav";
 
 export const metadata: Metadata = {
     title: "Yana.Diia.AI - Platform",
@@ -11,5 +12,12 @@ export default function PlatformLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    return <div className="antialiased">{children}</div>;
+    return (
+        <div className="min-h-screen bg-black text-white">
+            <SmartNav />
+            <main className="pt-16 pb-20 md:pb-0">
+                {children}
+            </main>
+        </div>
+    );
 }

@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Play, Loader2 } from 'lucide-react'
 
 interface CanvasProps {
   items: any[]
@@ -10,9 +11,11 @@ interface CanvasProps {
   onSelect: (index: number) => void
   onReorder: (dragIndex: number, hoverIndex: number) => void
   selectedItem: any | null
+  onExecute?: () => Promise<void>
+  isExecuting?: boolean
 }
 
-export function Canvas({ items, onDrop, onRemove, onSelect, onReorder, selectedItem }: CanvasProps) {
+export function Canvas({ items, onDrop, onRemove, onSelect, onReorder, selectedItem, onExecute, isExecuting }: CanvasProps) {
   const [isOver, setIsOver] = useState(false)
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -110,6 +113,29 @@ export function Canvas({ items, onDrop, onRemove, onSelect, onReorder, selectedI
             </div>
           )}
         </div>
+        
+        {/* Execute Button */}
+        {items.length > 0 && onExecute && (
+          <div className="absolute bottom-20 left-1/2 -translate-x-1/2 w-[calc(100%-32px)]">
+            <button
+              onClick={onExecute}
+              disabled={isExecuting}
+              className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-4 rounded-2xl font-bold text-lg shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            >
+              {isExecuting ? (
+                <>
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                  Виконується...
+                </>
+              ) : (
+                <>
+                  <Play className="w-5 h-5" />
+                  Виконати послугу
+                </>
+              )}
+            </button>
+          </div>
+        )}
         
         {/* Home Indicator */}
         <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-32 h-1 bg-black dark:bg-white rounded-full opacity-20"></div>

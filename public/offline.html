@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#000000">
+  <title>Yana.Diia - Офлайн</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #000;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+    .container { max-width: 400px; }
+    .icon { font-size: 64px; margin-bottom: 24px; }
+    h1 { font-size: 24px; margin-bottom: 16px; }
+    p { color: #888; margin-bottom: 24px; line-height: 1.6; }
+    button {
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      color: white;
+      border: none;
+      padding: 12px 32px;
+      border-radius: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    button:hover { transform: scale(1.05); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="icon">📡</div>
+    <h1>Ви офлайн</h1>
+    <p>Перевірте підключення до інтернету та спробуйте знову</p>
+    <button onclick="location.reload()">Оновити</button>
+  </div>
+</body>
+</html>
