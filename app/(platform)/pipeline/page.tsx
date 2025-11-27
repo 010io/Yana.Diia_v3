@@ -1,3 +1,56 @@
+'use client'
+
+import { useState } from 'react'
+import { Header } from '@/components/header'
+import { flowGenerator } from '@/lib/llm/pipeline/flow-generator'
+import { BRDParser } from '@/lib/llm/pipeline/brd-parser'
+
+export default function PipelinePage() {
+  const [activeTab, setActiveTab] = useState<'input' | 'parsed' | 'flows'>('input')
+  const [input, setInput] = useState('')
+  const [isProcessing, setIsProcessing] = useState(false)
+  const [parsedBRD, setParsedBRD] = useState<any>(null)
+  const [flows, setFlows] = useState<any[]>([])
+
+  const loadExample = () => {
+    setInput(`Service Name: Car Registration
+Target Audience: Citizens
+Goal: Register a new vehicle
+Key Steps:
+1. Identify user
+2. Enter car details
+3. Pay fee
+4. Get digital tech passport`)
+  }
+
+  const handleProcess = async () => {
+    setIsProcessing(true)
+    try {
+      // 1. Parse BRD
+      const parser = new BRDParser()
+      const brd = await parser.parse(input)
+      setParsedBRD(brd)
+      
+      // 2. Generate Flows
+      const generatedFlows = await flowGenerator.generateVariants(brd)
+      setFlows(generatedFlows)
+      
+      setActiveTab('flows')
+    } catch (error) {
+      console.error(error)
+      alert('Pipeline failed. See console.')
+    } finally {
+      setIsProcessing(false)
+    }
+  }
+
+  return (
+    <div className="container mx-auto p-6 max-w-5xl">
+      <Header title="UX Pipeline" showBack />
+      
+      <div className="flex gap-2 border-b border-gray-200 dark:border-gray-800 mb-8">
+        {['input', 'parsed', 'flows'].map((tab) => (
+          <button
             key={tab}
             onClick={() => setActiveTab(tab as any)}
             className={`pb-2 px-4 font-medium capitalize transition-colors ${
@@ -62,7 +115,7 @@
                 </div>
                 
                 <div className="space-y-3 mb-6">
-                  {flow.steps.map((step, i) => (
+                  {flow.steps.map((step: any, i: number) => (
                     <div key={step.id} className="flex items-center gap-3 text-sm">
                       <span className="w-6 h-6 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-xs text-gray-500">
                         {i + 1}

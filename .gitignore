@@ -350,3 +350,6 @@ fallback_video.mp4
 # Note: .github/ should NOT be ignored - it contains GitHub Actions workflows
 
 !lib/stores/
+!lib/blockchain/
+!lib/lego/
+!lib/llm/pipeline/
