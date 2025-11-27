@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Header } from '@/components/header'
+import Header from '@/components/header'
 import { flowGenerator } from '@/lib/llm/pipeline/flow-generator'
 import { BRDParser } from '@/lib/llm/pipeline/brd-parser'
 
