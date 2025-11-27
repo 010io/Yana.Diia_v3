@@ -54,9 +54,9 @@ npm run dev
 ### CodeMie SDK Credentials (вже в .env.example)
 
 ```
-Username: ilchuknatalia92aihackathon
-Password: KEHACx1Ed
-API Key: sk-m9C3oZ5xO3HqR6qretQivg
+Username: <your_username>
+Password: <your_password>
+API Key: <your_api_key>
 ```
 
 **Агенти:**

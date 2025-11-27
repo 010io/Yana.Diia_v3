@@ -59,9 +59,9 @@ curl -X POST http://localhost:8001/api/generate \
 Створити `backend/.env`:
 
 ```ini
-CODEMIE_USERNAME=ilchuknatalia92aihackathon
-CODEMIE_PASSWORD=KEHACx1Ed
-CODEMIE_API_KEY=sk-m9C3oZ5xO3HqR6qretQivg
+CODEMIE_USERNAME=<your_username>
+CODEMIE_PASSWORD=<your_password>
+CODEMIE_API_KEY=<your_api_key>
 CODEMIE_API_URL=https://codemie.lab.epam.com/code-assistant-api
 
 AGENT_FLOW_GENERATOR=58998463-93a5-4c8e-a9dd-c02d4008a25d
