@@ -50,7 +50,7 @@ async function buildHackathon(blocks: LegoComponent[]) {
     screens,
     exports: {
       figma: generateFigmaJSON(blocks),
-      html: generateHTMLMockup(blocks),
+      html: generateHTMLMockup(screens),
       description: generateDescription(blocks),
       pdf: null // Генерується на клієнті
     },
@@ -60,6 +60,102 @@ async function buildHackathon(blocks: LegoComponent[]) {
       mode: 'hackathon'
     }
   }
+}
+
+// Генерує HTML mockup у стилі Diia
+function generateHTMLMockup(screens: any[]): string {
+  const screenHTML = screens.map((screen, index) => `
+    <!-- Screen ${index + 1}: ${screen.name} -->
+    <div id="screen-${index}" class="screen" ${index > 0 ? 'style="display:none"' : ''}>
+      <div class="bg-white rounded-3xl p-6 shadow-sm">
+        ${index > 0 ? `<button onclick="prevScreen()" class="mb-4 text-gray-600">← ${screen.name}</button>` : ''}
+        ${generateScreenContent(screen, index, screens.length)}
+      </div>
+    </div>
+  `).join('\n')
+
+  return `<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diia Service Mockup</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #E2ECF4;
+    }
+  </style>
+</head>
+<body>
+  <div id="app" class="mx-auto max-w-[400px]">
+    ${screenHTML}
+  </div>
+
+  <script>
+    let currentScreen = 0;
+    const screens = document.querySelectorAll('.screen');
+
+    function showScreen(index) {
+      screens.forEach((screen, i) => {
+        screen.style.display = i === index ? 'block' : 'none';
+      });
+      currentScreen = index;
+    }
+
+    function nextScreen() {
+      if (currentScreen < screens.length - 1) {
+        showScreen(currentScreen + 1);
+      }
+    }
+
+    function prevScreen() {
+      if (currentScreen > 0) {
+        showScreen(currentScreen - 1);
+      }
+    }
+  </script>
+</body>
+</html>`
+}
+
+function generateScreenContent(screen: any, index: number, total: number): string {
+  const isLast = index === total - 1
+
+  if (isLast) {
+    // Success screen
+    return `
+      <div class="text-center">
+        <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-12 h-12 text-green-600" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-900 mb-2">Вітаємо!</h2>
+        <p class="text-gray-700 mb-6">${screen.props?.successMessage || 'Операція виконана успішно'}</p>
+        <button onclick="window.location.href='/'" class="w-full bg-black text-white rounded-2xl py-3 font-semibold mb-3">
+          На головний екран
+        </button>
+        <button class="w-full bg-transparent text-black rounded-2xl py-3 font-medium">
+          До моїх послуг
+        </button>
+      </div>
+    `
+  }
+
+  // Regular screen
+  return `
+    <h1 class="text-2xl font-bold text-gray-900 mb-6">${screen.name}</h1>
+    <div class="bg-gray-100 rounded-2xl p-4 mb-6">
+      <p class="text-sm text-gray-700">${screen.props?.description || 'Опис кроку'}</p>
+    </div>
+    <button onclick="nextScreen()" class="w-full bg-black text-white rounded-2xl py-3 font-semibold">
+      ${index === total - 2 ? 'Підтвердити' : 'Далі'}
+    </button>
+  `
 }
 
 // PRODUCTION MODE: Генерує full-stack app
