@@ -158,7 +158,7 @@ export default function LegoPage() {
             onClick={async () => {
               const result = await buildService(canvasItems as any, mode)
               setExportResult(result)
-              if (mode === 'hackathon' && result.exports?.html) {
+              if (mode === 'hackathon' && 'exports' in result && result.exports?.html) {
                 const blob = new Blob([result.exports.html], { type: 'text/html' })
                 const url = URL.createObjectURL(blob)
                 window.open(url, '_blank')
@@ -175,10 +175,12 @@ export default function LegoPage() {
 
       {/* Main Workspace */}
       <div className="flex-1 flex overflow-hidden">
-        <div className="w-72 flex-shrink-0">
+        {/* Component Library - hidden on mobile, shown in modal */}
+        <div className="hidden md:block w-72 flex-shrink-0">
           <ComponentLibrary onDragStart={handleDragStart} />
         </div>
         
+        {/* Canvas - full width on mobile */}
         <div className="flex-1 relative">
           <Canvas 
             items={canvasItems} 
@@ -190,9 +192,21 @@ export default function LegoPage() {
             onExecute={handleExecute}
             isExecuting={isExecuting}
           />
+          
+          {/* Mobile: Floating Add Button */}
+          <button 
+            onClick={() => {
+              // TODO: Open component library modal
+              alert('Відкрити бібліотеку компонентів (TODO)')
+            }}
+            className="md:hidden fixed bottom-24 right-4 w-14 h-14 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full shadow-lg flex items-center justify-center text-2xl z-50"
+          >
+            +
+          </button>
         </div>
         
-        <div className="w-80 flex-shrink-0">
+        {/* Property Editor - hidden on mobile, shown in modal */}
+        <div className="hidden md:block w-80 flex-shrink-0">
           <PropertyEditor 
             selectedItem={selectedItem}
             onUpdate={handleUpdateItem}

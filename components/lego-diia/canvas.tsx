@@ -35,21 +35,21 @@ export function Canvas({ items, onDrop, onRemove, onSelect, onReorder, selectedI
 
   return (
     <div 
-      className="h-full bg-gray-100 dark:bg-black p-8 overflow-y-auto flex justify-center"
+      className="h-full bg-gray-100 dark:bg-black p-2 md:p-8 overflow-y-auto flex justify-center items-start"
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
     >
-      {/* Phone Frame */}
+      {/* Phone Frame - адаптивний розмір */}
       <div className={`
-        w-[375px] min-h-[812px] bg-white dark:bg-gray-900 rounded-[40px] shadow-2xl border-8 border-gray-800 dark:border-gray-700 relative overflow-hidden transition-all duration-300
+        w-full max-w-[375px] aspect-[9/19.5] bg-white dark:bg-gray-900 rounded-[24px] md:rounded-[40px] shadow-2xl border-4 md:border-8 border-gray-800 dark:border-gray-700 relative overflow-hidden transition-all duration-300
         ${isOver ? 'scale-105 ring-4 ring-blue-500/50' : ''}
       `}>
         {/* Dynamic Island / Notch */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-7 bg-black rounded-b-2xl z-50"></div>
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 md:w-32 h-5 md:h-7 bg-black rounded-b-2xl z-50"></div>
         
         {/* Status Bar Placeholder */}
-        <div className="h-12 w-full bg-white dark:bg-gray-900 z-40 sticky top-0 flex justify-between items-center px-6 text-xs font-medium">
+        <div className="h-10 md:h-12 w-full bg-white dark:bg-gray-900 z-40 sticky top-0 flex justify-between items-center px-4 md:px-6 text-[10px] md:text-xs font-medium">
           <span>9:41</span>
           <div className="flex gap-1">
             <span>📶</span>
@@ -57,12 +57,15 @@ export function Canvas({ items, onDrop, onRemove, onSelect, onReorder, selectedI
           </div>
         </div>
 
-        {/* Content Area */}
-        <div className="min-h-[calc(100%-48px)] pb-8">
+        {/* Content Area - використовує flex для заповнення простору */}
+        <div className="flex-1 flex flex-col pb-6 md:pb-8 overflow-y-auto">
           {items.length === 0 ? (
-            <div className="h-[600px] flex flex-col items-center justify-center text-gray-400 p-8 text-center border-2 border-dashed border-gray-200 dark:border-gray-800 m-4 rounded-2xl">
-              <span className="text-4xl mb-4">🏗️</span>
-              <p>Drag components here to build your service</p>
+            <div className="flex-1 flex flex-col items-center justify-center text-gray-400 p-4 md:p-8 text-center border-2 border-dashed border-gray-200 dark:border-gray-800 m-2 md:m-4 rounded-xl md:rounded-2xl">
+              <span className="text-3xl md:text-4xl mb-3 md:mb-4">🏗️</span>
+              <p className="text-sm md:text-base">
+                <span className="hidden md:inline">Drag components here to build your service</span>
+                <span className="md:hidden">Tap + to add components</span>
+              </p>
             </div>
           ) : (
             <div className="space-y-1">
@@ -116,21 +119,21 @@ export function Canvas({ items, onDrop, onRemove, onSelect, onReorder, selectedI
         
         {/* Execute Button */}
         {items.length > 0 && onExecute && (
-          <div className="absolute bottom-20 left-1/2 -translate-x-1/2 w-[calc(100%-32px)]">
+          <div className="absolute bottom-12 md:bottom-16 left-1/2 -translate-x-1/2 w-[calc(100%-16px)] md:w-[calc(100%-32px)]">
             <button
               onClick={onExecute}
               disabled={isExecuting}
-              className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-4 rounded-2xl font-bold text-lg shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 md:py-4 rounded-xl md:rounded-2xl font-bold text-base md:text-lg shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {isExecuting ? (
                 <>
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                  Виконується...
+                  <Loader2 className="w-4 h-4 md:w-5 md:h-5 animate-spin" />
+                  <span className="text-sm md:text-base">Виконується...</span>
                 </>
               ) : (
                 <>
-                  <Play className="w-5 h-5" />
-                  Виконати послугу
+                  <Play className="w-4 h-4 md:w-5 md:h-5" />
+                  <span className="text-sm md:text-base">Виконати послугу</span>
                 </>
               )}
             </button>
@@ -138,7 +141,7 @@ export function Canvas({ items, onDrop, onRemove, onSelect, onReorder, selectedI
         )}
         
         {/* Home Indicator */}
-        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-32 h-1 bg-black dark:bg-white rounded-full opacity-20"></div>
+        <div className="absolute bottom-1 md:bottom-2 left-1/2 -translate-x-1/2 w-24 md:w-32 h-1 bg-black dark:bg-white rounded-full opacity-20"></div>
       </div>
     </div>
   )

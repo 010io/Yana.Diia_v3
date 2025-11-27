@@ -1,7 +1,4 @@
-import { ArrowRight, Brain, Zap, Shield, GitBranch, MessageCircle, FileJson } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
-import Header from '@/components/header'
+import { GlobalNav } from '@/components/global-nav'
 import Hero from '@/components/hero'
 import ModulesSection from '@/components/modules-section'
 import Features from '@/components/features'
@@ -26,7 +23,7 @@ import Team from '@/components/team'
 export default function Home() {
   return (
     <main className="min-h-screen bg-background">
-      <Header />
+      <GlobalNav />
       <Hero />
       <ModulesSection />
       <Mission />

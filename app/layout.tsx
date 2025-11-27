@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { DevPanel } from "@/components/dev-panel";
-import { MobileNav } from "@/components/mobile-nav";
+import { GlobalNav } from "@/components/global-nav";
 
 export const viewport: Viewport = {
   themeColor: '#000000',
@@ -65,9 +65,9 @@ export default function RootLayout({
         />
       </head>
       <body className="font-['Inter'] antialiased bg-black text-white" suppressHydrationWarning>
+        <GlobalNav />
         {children}
         <DevPanel />
-        <MobileNav />
       </body>
     </html>
   );
