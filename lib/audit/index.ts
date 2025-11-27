@@ -13,3 +13,27 @@ export { AuditOrchestrator } from './orchestrator';
 
 // Requirement loader
 export { parseRequirements, loadRequirementsFromFile } from './requirement-loader';
+
+// Data models and serialization
+export {
+  serializeRequirement,
+  deserializeRequirement,
+  validateRequirement,
+  validateAcceptanceCriterion,
+  serializeTestResult,
+  deserializeTestResult,
+  validateTestResult,
+  serializeAuditResult,
+  deserializeAuditResult,
+  validateAuditResult,
+  validateComplianceScore,
+  validateCategoryScore,
+  validateAuditSummary,
+  validateAuditMetadata,
+  validateAuditConfiguration,
+  createAuditResult,
+  createEmptyComplianceScore,
+  createEmptySummary,
+  createDefaultMetadata,
+  createTestResult,
+} from './models';
