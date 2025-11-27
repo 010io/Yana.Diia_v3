@@ -1,0 +1,37 @@
+# Auto-format line endings
+* text=auto
+
+# TypeScript/JavaScript files
+*.ts text eol=lf
+*.tsx text eol=lf
+*.js text eol=lf
+*.jsx text eol=lf
+*.json text eol=lf
+*.mjs text eol=lf
+
+# Markdown files
+*.md text eol=lf
+
+# Config files
+*.yml text eol=lf
+*.yaml text eol=lf
+*.toml text eol=lf
+*.config.* text eol=lf
+
+# Shell scripts
+*.sh text eol=lf
+*.ps1 text eol=crlf
+
+# Ignore binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.mp4 binary
+*.webm binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+*.pdf binary
