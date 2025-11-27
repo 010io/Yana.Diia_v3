@@ -209,70 +209,7 @@ function generateFigmaJSON(blocks: LegoComponent[]) {
   }
 }
 
-function generateHTMLMockup(blocks: LegoComponent[]) {
-  const styles = `
-    <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font-family: 'Inter', sans-serif; background: #000; color: #fff; }
-      .screen { min-height: 100vh; padding: 20px; border-bottom: 1px solid #333; }
-      .form { background: #111; padding: 20px; border-radius: 12px; }
-      .input { width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; border: 1px solid #333; background: #222; color: #fff; }
-      .button { width: 100%; padding: 16px; background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: #fff; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; }
-      .section { padding: 20px; background: #111; border-radius: 12px; margin: 10px 0; }
-    </style>
-  `
 
-  const html = blocks.map((block, i) => {
-    switch (block.type) {
-      case 'form':
-      case 'form-simple':
-        return `
-          <div class="screen" id="screen-${i}">
-            <h2>${block.name || 'Form'}</h2>
-            <div class="form">
-              ${(block.props?.fields || ['Email', 'Name']).map((f: string) => 
-                `<input class="input" placeholder="${f}" />`
-              ).join('')}
-              <button class="button">Далі</button>
-            </div>
-          </div>
-        `
-      case 'section':
-        return `
-          <div class="screen" id="screen-${i}">
-            <div class="section">
-              <h3>${block.props?.title || 'Section'}</h3>
-              <p>${block.props?.content || 'Content here'}</p>
-            </div>
-          </div>
-        `
-      case 'auth-mock':
-        return `
-          <div class="screen" id="screen-${i}">
-            <div class="form">
-              <h2>🔐 Авторизація</h2>
-              <button class="button">Увійти через Дія</button>
-            </div>
-          </div>
-        `
-      default:
-        return `<div class="screen" id="screen-${i}"><p>${block.name}</p></div>`
-    }
-  }).join('')
-
-  return `<!DOCTYPE html>
-<html lang="uk">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yana.Diia Service Mockup</title>
-  ${styles}
-</head>
-<body>
-  ${html}
-</body>
-</html>`
-}
 
 function generateDescription(blocks: LegoComponent[]) {
   return `# Опис послуги

@@ -56,12 +56,14 @@ export interface ErrorHandling {
 export interface LegoComponent {
   id: string;
   name: string;
+  type?: string; // Component type for rendering
   category: ComponentCategory;
   apiEndpoint?: string;
   apiProvider: APIProvider;
   dataSchema: z.ZodSchema;
   metadata: ComponentMetadata;
   defaultConfig?: Record<string, any>;
+  props?: Record<string, any>; // Component properties
 }
 
 /**

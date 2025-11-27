@@ -90,3 +90,28 @@ python -m yana_diia.main
 ## 📄 Ліцензія
 
 MIT License. See [LICENSE](LICENSE) for details.
+
+
+## 🔮 В Розробці
+
+### 🔐 iQ-Auth Integration
+[GitHub: 010-io/iQ-auth](https://github.com/010-io/iQ-auth)
+
+Інтеграція з iQ-Auth для розширеної автентифікації та авторизації.
+
+**Статус:** 🚧 Early Stage
+
+**Плани:**
+- Інтеграція з Diia.Signature
+- Multi-factor authentication
+- Biometric auth support
+- Chrome extension для швидкого доступу
+
+### 🌐 Chrome Extension
+Розширення для браузера для швидкого доступу до Yana.Diia функцій.
+
+**Статус:** 📋 Planned
+
+---
+
+*Розроблено для хакатону Diia.AI 2025* 🇺🇦

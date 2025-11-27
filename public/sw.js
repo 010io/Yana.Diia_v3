@@ -5,7 +5,8 @@ const OFFLINE_URL = '/offline.html';
 const STATIC_ASSETS = [
   '/',
   '/manifest.json',
-  '/icon.png',
+  '/icon.svg',
+  '/icon-192.png',
   '/icon-512.png',
   '/offline.html'
 ];
