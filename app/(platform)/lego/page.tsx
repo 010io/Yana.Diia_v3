@@ -6,6 +6,7 @@ import { Canvas } from '@/components/lego-diia/canvas'
 import { PropertyEditor } from '@/components/lego-diia/property-editor'
 import { componentRegistry } from '@/lib/lego/component-registry'
 import { useLegoStore } from '@/lib/stores/lego-store'
+import { buildService, type LegoMode } from '@/lib/lego/dual-mode-builder'
 
 export default function LegoPage() {
   const { items: canvasItems, addItem, removeItem, updateItem } = useLegoStore()
@@ -13,6 +14,8 @@ export default function LegoPage() {
   const [selectedItem, setSelectedItem] = useState<any | null>(null)
   const [isExecuting, setIsExecuting] = useState(false)
   const [executionResult, setExecutionResult] = useState<any>(null)
+  const [mode, setMode] = useState<LegoMode>('hackathon')
+  const [exportResult, setExportResult] = useState<any>(null)
 
   const handleDragStart = (id: string) => {
     setDraggedItem(id)
@@ -111,17 +114,61 @@ export default function LegoPage() {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          {/* API Status Indicator */}
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-green-500/10 border border-green-500/20">
-            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            <span className="text-xs font-medium text-green-500">APIs Active</span>
+          {/* Mode Toggle */}
+          <div className="flex items-center bg-black/20 rounded-lg p-1">
+            <button 
+              onClick={() => setMode('hackathon')}
+              className={`px-3 py-1.5 text-xs font-medium rounded-md transition ${
+                mode === 'hackathon' 
+                  ? 'bg-yellow-500 text-black' 
+                  : 'text-white/60 hover:text-white'
+              }`}
+            >
+              🎨 Hackathon
+            </button>
+            <button 
+              onClick={() => setMode('production')}
+              className={`px-3 py-1.5 text-xs font-medium rounded-md transition ${
+                mode === 'production' 
+                  ? 'bg-green-500 text-black' 
+                  : 'text-white/60 hover:text-white'
+              }`}
+            >
+              ⚙️ Production
+            </button>
+          </div>
+
+          {/* Mode Status */}
+          <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border ${
+            mode === 'hackathon' 
+              ? 'bg-yellow-500/10 border-yellow-500/20' 
+              : 'bg-green-500/10 border-green-500/20'
+          }`}>
+            <div className={`w-2 h-2 rounded-full animate-pulse ${
+              mode === 'hackathon' ? 'bg-yellow-500' : 'bg-green-500'
+            }`} />
+            <span className={`text-xs font-medium ${
+              mode === 'hackathon' ? 'text-yellow-500' : 'text-green-500'
+            }`}>
+              {mode === 'hackathon' ? 'Макети' : 'Full-Stack'}
+            </span>
           </div>
           
-          <button className="px-3 py-1.5 text-sm font-medium bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-lg transition">
-            Preview
-          </button>
-          <button className="px-3 py-1.5 text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg transition shadow-lg shadow-primary/20">
-            Export
+          <button 
+            onClick={async () => {
+              const result = await buildService(canvasItems as any, mode)
+              setExportResult(result)
+              if (mode === 'hackathon' && result.exports?.html) {
+                const blob = new Blob([result.exports.html], { type: 'text/html' })
+                const url = URL.createObjectURL(blob)
+                window.open(url, '_blank')
+              } else {
+                alert(JSON.stringify(result, null, 2))
+              }
+            }}
+            className="px-3 py-1.5 text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg transition shadow-lg shadow-primary/20"
+          >
+            {mode === 'hackathon' ? '📥 Export Mockup' : '🚀 Deploy'}
           </button>
         </div>
       </header>

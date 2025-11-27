@@ -95,8 +95,44 @@ Key Steps:
         {/* Parsed Tab */}
         {activeTab === 'parsed' && parsedBRD && (
           <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-xl border border-gray-200 dark:border-gray-800">
-            <h3 className="font-bold mb-4">Structured Data (JSON)</h3>
-            <pre className="font-mono text-sm overflow-auto max-h-[500px] text-green-600 dark:text-green-400">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="font-bold">Structured Data (JSON)</h3>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => navigator.clipboard.writeText(JSON.stringify(parsedBRD, null, 2))}
+                  className="px-3 py-1.5 text-xs font-medium bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-lg transition flex items-center gap-1"
+                >
+                  📋 Copy
+                </button>
+                <button
+                  onClick={() => {
+                    const blob = new Blob([JSON.stringify(parsedBRD, null, 2)], { type: 'application/json' })
+                    const url = URL.createObjectURL(blob)
+                    const a = document.createElement('a')
+                    a.href = url
+                    a.download = `parsed-brd-${Date.now()}.json`
+                    a.click()
+                  }}
+                  className="px-3 py-1.5 text-xs font-medium bg-blue-500 text-white hover:bg-blue-600 rounded-lg transition flex items-center gap-1"
+                >
+                  💾 Download JSON
+                </button>
+                <button
+                  onClick={() => {
+                    const blob = new Blob([JSON.stringify(parsedBRD, null, 2)], { type: 'application/json' })
+                    if (navigator.share) {
+                      navigator.share({ files: [new File([blob], 'parsed-brd.json', { type: 'application/json' })] })
+                    } else {
+                      alert('Share not supported on this device')
+                    }
+                  }}
+                  className="px-3 py-1.5 text-xs font-medium bg-purple-500 text-white hover:bg-purple-600 rounded-lg transition flex items-center gap-1"
+                >
+                  📤 Share
+                </button>
+              </div>
+            </div>
+            <pre className="font-mono text-sm overflow-auto max-h-[500px] text-green-600 dark:text-green-400 bg-black/5 dark:bg-white/5 p-4 rounded-lg">
               {JSON.stringify(parsedBRD, null, 2)}
             </pre>
           </div>
@@ -104,7 +140,63 @@ Key Steps:
 
         {/* Flows Tab */}
         {activeTab === 'flows' && flows.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="space-y-6">
+            {/* Export All Buttons */}
+            <div className="flex flex-wrap gap-2 p-4 bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800">
+              <span className="text-sm font-medium text-gray-500 mr-2">Export All:</span>
+              <button
+                onClick={() => navigator.clipboard.writeText(JSON.stringify(flows, null, 2))}
+                className="px-3 py-1.5 text-xs font-medium bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-lg transition"
+              >
+                📋 Copy JSON
+              </button>
+              <button
+                onClick={() => {
+                  const blob = new Blob([JSON.stringify(flows, null, 2)], { type: 'application/json' })
+                  const url = URL.createObjectURL(blob)
+                  const a = document.createElement('a')
+                  a.href = url
+                  a.download = `flows-${Date.now()}.json`
+                  a.click()
+                }}
+                className="px-3 py-1.5 text-xs font-medium bg-blue-500 text-white hover:bg-blue-600 rounded-lg transition"
+              >
+                💾 Download JSON
+              </button>
+              <button
+                onClick={() => {
+                  const csv = flows.map(f => `${f.id},${f.name},${f.score},${f.estimatedTime}`).join('\n')
+                  const blob = new Blob([`id,name,score,time\n${csv}`], { type: 'text/csv' })
+                  const url = URL.createObjectURL(blob)
+                  const a = document.createElement('a')
+                  a.href = url
+                  a.download = `flows-${Date.now()}.csv`
+                  a.click()
+                }}
+                className="px-3 py-1.5 text-xs font-medium bg-green-500 text-white hover:bg-green-600 rounded-lg transition"
+              >
+                📊 Download CSV
+              </button>
+              <button
+                onClick={() => {
+                  const yaml = flows.map(f => `- id: ${f.id}\n  name: ${f.name}\n  score: ${f.score}`).join('\n')
+                  navigator.clipboard.writeText(yaml)
+                  alert('YAML copied!')
+                }}
+                className="px-3 py-1.5 text-xs font-medium bg-yellow-500 text-white hover:bg-yellow-600 rounded-lg transition"
+              >
+                📝 Copy YAML
+              </button>
+              <button
+                onClick={() => window.print()}
+                className="px-3 py-1.5 text-xs font-medium bg-gray-500 text-white hover:bg-gray-600 rounded-lg transition"
+              >
+                🖨️ Print
+              </button>
+            </div>
+
+            {/* Flows Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {flows.map(flow => (
               <div key={flow.id} className="border border-gray-200 dark:border-gray-800 rounded-xl p-6 bg-white dark:bg-gray-900 hover:shadow-lg transition">
                 <div className="flex justify-between items-start mb-4">
@@ -128,10 +220,34 @@ Key Steps:
 
                 <div className="flex justify-between items-center text-xs text-gray-500 border-t border-gray-100 dark:border-gray-800 pt-4">
                   <span>⏱️ {flow.estimatedTime}s</span>
-                  <button className="text-blue-500 hover:underline">View Details →</button>
+                  <div className="flex gap-2">
+                    <button 
+                      onClick={() => navigator.clipboard.writeText(JSON.stringify(flow, null, 2))}
+                      className="text-gray-400 hover:text-blue-500"
+                      title="Copy JSON"
+                    >
+                      📋
+                    </button>
+                    <button 
+                      onClick={() => {
+                        const blob = new Blob([JSON.stringify(flow, null, 2)], { type: 'application/json' })
+                        const url = URL.createObjectURL(blob)
+                        const a = document.createElement('a')
+                        a.href = url
+                        a.download = `flow-${flow.id}.json`
+                        a.click()
+                      }}
+                      className="text-gray-400 hover:text-green-500"
+                      title="Download"
+                    >
+                      💾
+                    </button>
+                    <button className="text-blue-500 hover:underline">View →</button>
+                  </div>
                 </div>
               </div>
             ))}
+            </div>
           </div>
         )}
       </div>
