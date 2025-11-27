@@ -11,13 +11,31 @@
 
 ## 🚀 Функціонал
 
-### 🧱 Lego-Diia Constructor
+### 🧱 Lego-Diia Constructor (Dual Mode)
+
+![LEGO-Diia Concept](assets/images/lego-diia-concept.jpg)
+
+> *Київ 2077 × Diia.AI HUB — модульна збірка державних сервісів*
 
 Візуальний конструктор для збірки державних послуг з готових компонентів.
 
+**🚀 Hackathon Mode:**
+- HTML/CSS mockups за секунди
+- Figma-ready експорт
+- Інтерактивні прототипи для демо
+
+**🏭 Production Mode:**
+- Next.js/React компоненти
+- Інтеграція з NAIS, YouControl, Data.gov.ua
+- Docker-ready deployment
+
+**Можливості:**
 - Drag-and-drop інтерфейс
 - 50+ компонентів Diia Design System
-- Експорт в JSON/React
+- Експорт в JSON/React/Figma
+- Blockchain audit trail
+
+📖 [Детальна документація LEGO Dual Mode](docs/LEGO_DUAL_MODE.md)
 
 ### ⚡ AI Pipeline
 

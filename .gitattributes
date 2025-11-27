@@ -1,5 +1,9 @@
-# Auto-format line endings
-* text=auto
+# Auto-format line endings with UTF-8 encoding
+* text=auto working-tree-encoding=UTF-8
+
+# Force UTF-8 for text files
+*.md text eol=lf working-tree-encoding=UTF-8
+*.txt text eol=lf working-tree-encoding=UTF-8
 
 # TypeScript/JavaScript files
 *.ts text eol=lf
@@ -9,8 +13,7 @@
 *.json text eol=lf
 *.mjs text eol=lf
 
-# Markdown files
-*.md text eol=lf
+# Markdown files (UTF-8 defined above)
 
 # Config files
 *.yml text eol=lf
