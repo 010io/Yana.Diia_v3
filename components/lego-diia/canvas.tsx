@@ -7,10 +7,12 @@ interface CanvasProps {
   items: any[]
   onDrop: (e: React.DragEvent) => void
   onRemove: (index: number) => void
+  onSelect: (index: number) => void
   onReorder: (dragIndex: number, hoverIndex: number) => void
+  selectedItem: any | null
 }
 
-export function Canvas({ items, onDrop, onRemove, onReorder }: CanvasProps) {
+export function Canvas({ items, onDrop, onRemove, onSelect, onReorder, selectedItem }: CanvasProps) {
   const [isOver, setIsOver] = useState(false)
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -68,7 +70,12 @@ export function Canvas({ items, onDrop, onRemove, onReorder }: CanvasProps) {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, x: -50 }}
-                    className="relative group hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors cursor-move"
+                    onClick={() => onSelect(index)}
+                    className={`relative group transition-colors cursor-pointer ${
+                      selectedItem?.uniqueId === item.uniqueId
+                        ? 'bg-primary/10 ring-2 ring-primary'
+                        : 'hover:bg-blue-50 dark:hover:bg-blue-900/20'
+                    }`}
                   >
                     {/* Mock Component Render */}
                     <div className="p-4 pointer-events-none">

@@ -215,7 +215,7 @@ npx vercel env ls --yes
 **Run this now:**
 
 ```powershell
-cd c:\igor\Antigravity.exe.Workspace.Project\ДІЯ\01_Projects\Yana.Diia_v3
+cd c:\igor\Projects\ДІЯ\01_Projects\Yana.Diia_v3
 .\quick-deploy-check.ps1
 ```
 

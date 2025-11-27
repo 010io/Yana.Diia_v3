@@ -26,7 +26,7 @@
 **Запускати `git-auto-sync.bat` кожні 5 хвилин:**
 
 ```powershell
-$action = New-ScheduledTaskAction -Execute "C:\igor\Antigravity.exe.Workspace.Project\ДІЯ\01_Projects\Yana.Diia_v3\git-auto-sync.bat"
+$action = New-ScheduledTaskAction -Execute "C:\igor\Projects\ДІЯ\01_Projects\Yana.Diia_v3\git-auto-sync.bat"
 $trigger = New-ScheduledTaskTrigger -Once -At (Get-Date) -RepetitionInterval (New-TimeSpan -Minutes 5)
 Register-ScheduledTask -TaskName "GitAutoSync-Yana" -Action $action -Trigger $trigger
 ```
@@ -73,7 +73,7 @@ chmod +x .git/hooks/post-commit
 
 ```powershell
 while($true) {
-    cd "C:\igor\Antigravity.exe.Workspace.Project\ДІЯ\01_Projects\Yana.Diia_v3"
+    cd "C:\igor\Projects\ДІЯ\01_Projects\Yana.Diia_v3"
     .\git-auto-sync.bat
     Start-Sleep -Seconds 300
 }

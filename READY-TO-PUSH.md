@@ -11,7 +11,7 @@
 ### Варіант 1: На цьому ПК (якщо є Git)
 ```bash
 # Відкрий Git Bash або PowerShell з Git
-cd C:\igor\Antigravity.exe.Workspace.Project\ДІЯ\01_Projects\Yana.Diia_v3
+cd C:\igor\Projects\ДІЯ\01_Projects\Yana.Diia_v3
 
 # Запусти готовий скрипт
 bash git-push-to-github.sh

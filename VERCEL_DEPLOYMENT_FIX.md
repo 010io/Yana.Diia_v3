@@ -59,7 +59,7 @@ npm install next@15.0.3 react@19.0.0 react-dom@19.0.0
 ### **Step 1: Оновити залежності**
 
 ```bash
-cd c:\igor\Antigravity.exe.Workspace.Project\ДІЯ\01_Projects\Yana.Diia_v3
+cd c:\igor\Projects\ДІЯ\01_Projects\Yana.Diia_v3
 
 # Видалити old node_modules та lock
 rm -rf node_modules package-lock.json

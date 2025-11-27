@@ -21,7 +21,7 @@
 ### Step 1.1: Підняти Infrastructure
 
 ```bash
-cd c:\igor\Antigravity.exe.Workspace.Project\ДІЯ\01_Projects\Yana.Diia_v3\backend
+cd c:\igor\Projects\ДІЯ\01_Projects\Yana.Diia_v3\backend
 
 # Підняти Weaviate та Ollama
 docker compose up -d
@@ -187,7 +187,7 @@ curl http://127.0.0.1:8000/api/mock/edr/12345678
 ### Step 3.1: Frontend Dependencies
 
 ```bash
-cd c:\igor\Antigravity.exe.Workspace.Project\ДІЯ\01_Projects\Yana.Diia_v3
+cd c:\igor\Projects\ДІЯ\01_Projects\Yana.Diia_v3
 
 # Install (після виправлення package.json до Next.js 15)
 rm -rf node_modules package-lock.json

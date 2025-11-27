@@ -3,67 +3,60 @@
 import { useState } from 'react'
 import { ComponentLibrary } from '@/components/lego-diia/component-library'
 import { Canvas } from '@/components/lego-diia/canvas'
-import { YanaAnalyzer } from '@/components/lego-diia/yana-analyzer'
-import componentsData from '@/config/diia-components.json'
-import { diiaProvider } from '@/lib/llm/providers/diia'
-import { openDataBotProvider } from '@/lib/llm/providers/openDataBot'
-
+import { PropertyEditor } from '@/components/lego-diia/property-editor'
+import { componentRegistry } from '@/lib/lego/component-registry'
 import { useLegoStore } from '@/lib/stores/lego-store'
 
 export default function LegoPage() {
-  const { items: canvasItems, addItem, removeItem, setItems } = useLegoStore()
+  const { items: canvasItems, addItem, removeItem, updateItem } = useLegoStore()
   const [draggedItem, setDraggedItem] = useState<string | null>(null)
-  const [isConnecting, setIsConnecting] = useState(false)
+  const [selectedItem, setSelectedItem] = useState<any | null>(null)
 
   const handleDragStart = (id: string) => {
     setDraggedItem(id)
   }
 
-  const handleDrop = (e: React.DragEvent) => {
+  const handleDrop = () => {
     if (!draggedItem) return
     
-    const component = componentsData.find(c => c.id === draggedItem)
+    const component = componentRegistry.get(draggedItem)
     if (component) {
-      addItem({ ...component, uniqueId: Date.now(), dataSource: 'mock' })
+      const newItem = {
+        ...component,
+        uniqueId: Date.now(),
+        dataSource: 'mock' as const,
+        config: {},
+      }
+      addItem(newItem as any)
+      setSelectedItem(newItem)
     }
     setDraggedItem(null)
   }
 
   const handleRemove = (index: number) => {
-    // Note: canvas.tsx passes index, but we need uniqueId. 
-    // For now, let's assume canvas passes the item or we find it by index.
-    // Ideally refactor Canvas to pass item.uniqueId
     const itemToRemove = canvasItems[index]
     if (itemToRemove) {
       removeItem(itemToRemove.uniqueId)
+      if (selectedItem?.uniqueId === itemToRemove.uniqueId) {
+        setSelectedItem(null)
+      }
     }
   }
 
-  const handleReorder = (dragIndex: number, hoverIndex: number) => {
+  const handleSelect = (index: number) => {
+    setSelectedItem(canvasItems[index])
+  }
+
+  const handleUpdateItem = (uniqueId: number, updates: any) => {
+    updateItem(uniqueId, updates)
+    // Update selected item if it's the one being edited
+    if (selectedItem?.uniqueId === uniqueId) {
+      setSelectedItem({ ...selectedItem, ...updates })
+    }
+  }
+
+  const handleReorder = () => {
     // TODO: Implement reordering logic
-  }
-
-  const connectToRealApi = async () => {
-    setIsConnecting(true)
-    try {
-      // Simulate connection check to real providers
-      await diiaProvider.getDocuments('test_token')
-      await openDataBotProvider.searchCompany('12345678')
-      
-      // Update items to show they are "Live"
-      setItems(canvasItems.map(item => ({
-        ...item,
-        dataSource: 'live',
-        status: 'connected'
-      })))
-      
-      alert('✅ Connected to Diia & OpenDataBot APIs (Mock Mode Active)')
-    } catch (e) {
-      console.error(e)
-      alert('❌ Connection Failed')
-    } finally {
-      setIsConnecting(false)
-    }
   }
 
   return (
@@ -84,15 +77,12 @@ export default function LegoPage() {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <button 
-            onClick={connectToRealApi}
-            disabled={isConnecting}
-            className={`px-3 py-1.5 text-sm font-medium rounded-lg transition flex items-center gap-2 ${
-              isConnecting ? 'bg-yellow-500/10 text-yellow-500 border border-yellow-500/20' : 'bg-green-500/10 hover:bg-green-500/20 text-green-500 border border-green-500/20'
-            }`}
-          >
-            {isConnecting ? 'Connecting...' : '🔌 Connect Real APIs'}
-          </button>
+          {/* API Status Indicator */}
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-green-500/10 border border-green-500/20">
+            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+            <span className="text-xs font-medium text-green-500">APIs Active</span>
+          </div>
+          
           <button className="px-3 py-1.5 text-sm font-medium bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-lg transition">
             Preview
           </button>
@@ -113,12 +103,17 @@ export default function LegoPage() {
             items={canvasItems} 
             onDrop={handleDrop}
             onRemove={handleRemove}
+            onSelect={handleSelect}
             onReorder={handleReorder}
+            selectedItem={selectedItem}
           />
         </div>
         
         <div className="w-80 flex-shrink-0">
-          <YanaAnalyzer items={canvasItems} />
+          <PropertyEditor 
+            selectedItem={selectedItem}
+            onUpdate={handleUpdateItem}
+          />
         </div>
       </div>
     </div>

@@ -68,7 +68,7 @@ https://yana-diia-v3.vercel.app/evaluation
 **Запусти локально:**
 
 ```powershell
-cd c:\igor\Antigravity.exe.Workspace.Project\ДІЯ\01_Projects\Yana.Diia_v3
+cd c:\igor\Projects\ДІЯ\01_Projects\Yana.Diia_v3
 npm run dev
 ```
 
