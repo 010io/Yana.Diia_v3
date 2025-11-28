@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 // Team credentials for Basic Auth
-const TEAM_USERNAME = 'YAnaDiia';
-const TEAM_PASSWORD = 'Be.TRUE_3.1415...454592...7';
+const TEAM_USERNAME = 'webuser';
+const TEAM_PASSWORD = 'uHMAsHtJvuPMLxTM15NJ';
 
 export function middleware(request: NextRequest) {
   // Get the authorization header

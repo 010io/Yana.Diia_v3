@@ -405,3 +405,155 @@ componentRegistry.register({
     author: 'Diia Design System',
   },
 });
+
+componentRegistry.register({
+  id: 'action-button',
+  name: 'Action Button',
+  category: 'form',
+  description: 'Кнопка дії (виконати, підтвердити)',
+  icon: '▶️',
+  props: {
+    text: {
+      type: 'string',
+      required: true,
+      description: 'Текст кнопки',
+    },
+    variant: {
+      type: 'string',
+      required: false,
+      default: 'primary',
+      description: 'Варіант стилю: primary, secondary',
+    },
+  },
+  metadata: {
+    documentation: 'https://design.diia.gov.ua/components/button',
+    examples: ['Submit form', 'Execute service'],
+    tags: ['form', 'button', 'action', 'ui'],
+    version: '1.0.0',
+    author: 'Diia Design System',
+  },
+});
+
+// FORM COMPONENTS
+componentRegistry.register({
+  id: 'text-input',
+  name: 'Text Input',
+  category: 'form',
+  description: 'Текстове поле вводу',
+  icon: '📝',
+  props: {
+    label: {
+      type: 'string',
+      required: true,
+      description: 'Підпис поля',
+    },
+    placeholder: {
+      type: 'string',
+      required: false,
+      description: 'Підказка',
+    },
+    value: {
+      type: 'string',
+      required: false,
+      description: 'Значення',
+    },
+  },
+  metadata: {
+    documentation: 'https://design.diia.gov.ua/components/input',
+    examples: ['Name input', 'Address input'],
+    tags: ['form', 'input', 'text', 'ui'],
+    version: '1.0.0',
+    author: 'Diia Design System',
+  },
+});
+
+componentRegistry.register({
+  id: 'number-input',
+  name: 'Number Input',
+  category: 'form',
+  description: 'Числове поле вводу',
+  icon: '🔢',
+  props: {
+    label: {
+      type: 'string',
+      required: true,
+      description: 'Підпис поля',
+    },
+    placeholder: {
+      type: 'string',
+      required: false,
+      description: 'Підказка',
+    },
+    value: {
+      type: 'number',
+      required: false,
+      description: 'Значення',
+    },
+  },
+  metadata: {
+    documentation: 'https://design.diia.gov.ua/components/input',
+    examples: ['Amount input', 'Quantity input'],
+    tags: ['form', 'input', 'number', 'ui'],
+    version: '1.0.0',
+    author: 'Diia Design System',
+  },
+});
+
+componentRegistry.register({
+  id: 'chip',
+  name: 'Chip',
+  category: 'data',
+  description: 'Компактний елемент інформації',
+  icon: '🏷️',
+  props: {
+    label: { type: 'string', required: true, description: 'Текст' },
+    variant: { type: 'string', required: false, default: 'default', description: 'Варіант: default, outline, success, warning' },
+  },
+  metadata: {
+    documentation: 'https://design.diia.gov.ua/components/chip',
+    examples: ['Status', 'Tag'],
+    tags: ['ui', 'chip', 'tag'],
+    version: '1.0.0',
+    author: 'Diia Design System',
+  },
+});
+
+componentRegistry.register({
+  id: 'list-item',
+  name: 'List Item',
+  category: 'data',
+  description: 'Елемент списку',
+  icon: '📄',
+  props: {
+    title: { type: 'string', required: true, description: 'Заголовок' },
+    subtitle: { type: 'string', required: false, description: 'Підзаголовок' },
+    icon: { type: 'string', required: false, description: 'Іконка' },
+    action: { type: 'boolean', required: false, default: false, description: 'Чи є елемент клікабельним' },
+  },
+  metadata: {
+    documentation: 'https://design.diia.gov.ua/components/list',
+    examples: ['Bank item', 'Menu item'],
+    tags: ['ui', 'list', 'item'],
+    version: '1.0.0',
+    author: 'Diia Design System',
+  },
+});
+
+componentRegistry.register({
+  id: 'detail-card',
+  name: 'Detail Card',
+  category: 'data',
+  description: 'Картка з деталями',
+  icon: '📋',
+  props: {
+    title: { type: 'string', required: true, description: 'Заголовок' },
+    items: { type: 'array', required: true, description: 'Список пар ключ-значення' },
+  },
+  metadata: {
+    documentation: 'https://design.diia.gov.ua/components/card',
+    examples: ['Transaction details', 'User info'],
+    tags: ['ui', 'card', 'details'],
+    version: '1.0.0',
+    author: 'Diia Design System',
+  },
+});

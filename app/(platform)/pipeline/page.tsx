@@ -1,9 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import Header from '@/components/header'
+import { useRouter } from 'next/navigation'
 import { flowGenerator } from '@/lib/llm/pipeline/flow-generator'
 import { BRDParser } from '@/lib/llm/pipeline/brd-parser'
+import { useLegoStore } from '@/lib/stores/lego-store'
 
 export default function PipelinePage() {
   const [activeTab, setActiveTab] = useState<'input' | 'parsed' | 'flows'>('input')
@@ -11,6 +12,8 @@ export default function PipelinePage() {
   const [isProcessing, setIsProcessing] = useState(false)
   const [parsedBRD, setParsedBRD] = useState<any>(null)
   const [flows, setFlows] = useState<any[]>([])
+  const { setItems } = useLegoStore()
+  const router = useRouter()
 
   const loadExample = () => {
     setInput(`Service Name: Car Registration
@@ -21,6 +24,160 @@ Key Steps:
 2. Enter car details
 3. Pay fee
 4. Get digital tech passport`)
+  }
+
+  const handleViewFlow = (flow: any) => {
+    // Clear previous flow data first
+    localStorage.removeItem('lego_import_flow')
+
+    // Convert flow steps to proper LEGO components with smart mapping
+    const legoComponents = flow.steps.map((step: any, index: number) => {
+      const componentName = step.component.toLowerCase()
+      const stepType = step.type || 'info'
+      
+      // Smart mapping based on component name and type
+      let registryId = 'info-card'
+      let props: any = {}
+      let name = step.component
+      
+      // Map by component name patterns
+      if (componentName.includes('signature') || componentName.includes('diia')) {
+        registryId = 'diia-signature'
+        name = 'Diia.Signature'
+        props = { 
+          documentHash: 'mock-hash-' + Date.now(), 
+          redirectUrl: '/success' 
+        }
+      } else if (componentName.includes('amount') || componentName.includes('input')) {
+        // Determine input type
+        const isNumber = componentName.includes('amount') || componentName.includes('number') || componentName.includes('sum');
+        
+        registryId = isNumber ? 'number-input' : 'text-input';
+        name = isNumber ? 'Сума' : 'Введення даних';
+        
+        props = { 
+          label: step.component || (isNumber ? 'Введіть суму' : 'Введіть дані'),
+          placeholder: step.description || (isNumber ? '0.00' : 'Введіть текст'),
+          value: isNumber ? '' : ''
+        }
+      } else if (componentName.includes('success') || componentName.includes('banner')) {
+        registryId = 'success-banner'
+        name = 'SuccessBanner'
+        props = { 
+          title: 'Вітаємо!', 
+          message: 'Ви успішно пройшли процес. Ви можете перевірити статус заявки у своєму профілі.' 
+        }
+      } else if (componentName.includes('profile') || componentName.includes('card')) {
+        registryId = 'info-card'
+        name = 'ProfileCard'
+        props = { 
+          title: 'Ваш профіль', 
+          text: 'Перевірте дані вашого профілю',
+          icon: '👤'
+        }
+      } else if (componentName.includes('summary') || componentName.includes('confirm')) {
+        registryId = 'info-card'
+        name = 'SummaryCard'
+        props = { 
+          title: 'Підтвердження', 
+          text: 'Перевірте всі дані перед відправкою',
+          icon: '📋'
+        }
+      } else if (componentName.includes('intro') || componentName.includes('info')) {
+        registryId = 'info-card'
+        name = 'IntroCard'
+        props = { 
+          title: 'Інформація', 
+          text: 'Ознайомтесь з інструкцією перед початком',
+          icon: 'ℹ️'
+        }
+      } else if (componentName.includes('bank') || componentName.includes('account')) {
+        registryId = 'info-card'
+        name = 'BankAccountForm'
+        props = { 
+          title: 'Банківський рахунок', 
+          text: 'Введіть дані вашого банківського рахунку',
+          icon: '🏦'
+        }
+      } else if (componentName.includes('payment')) {
+        registryId = 'monobank-payment'
+        name = 'Payment'
+        props = { 
+          amount: 10000, 
+          description: 'Оплата послуги' 
+        }
+      } else if (componentName.includes('chip') || componentName.includes('badge')) {
+        registryId = 'chip';
+        name = 'Chip';
+        const isSuccess = componentName.includes('status') || componentName.includes('success');
+        const isWarning = componentName.includes('deadline') || componentName.includes('warning');
+        props = {
+          label: step.description || 'Label',
+          variant: isSuccess ? 'success' : isWarning ? 'warning' : 'default'
+        }
+      } else if (componentName.includes('list') || componentName.includes('item') || componentName.includes('row')) {
+        registryId = 'list-item';
+        name = 'List Item';
+        props = {
+          title: step.component.replace(/_/g, ' '),
+          subtitle: step.description,
+          action: true,
+          icon: componentName.includes('bank') ? '🏦' : componentName.includes('card') ? '💳' : '📄'
+        }
+      } else if (componentName.includes('detail') || componentName.includes('summary')) {
+        registryId = 'detail-card';
+        name = 'Details';
+        props = {
+          title: 'Деталі',
+          items: [
+            { label: 'Статус', value: 'Очікується' },
+            { label: 'Дата', value: new Date().toLocaleDateString() }
+          ]
+        }
+      } else {
+        // Fallback to info card
+        registryId = 'info-card'
+        name = step.component
+        props = { 
+          title: step.component, 
+          text: step.description || 'Крок процесу',
+          icon: '📄'
+        }
+      }
+      
+      return {
+        id: registryId,
+        uniqueId: Date.now() + index + Math.random() * 1000,
+        name,
+        category: stepType === 'diia_signature' ? 'auth' : 
+                  stepType === 'input' ? 'form' : 
+                  stepType === 'result' ? 'layout' : 'layout',
+        dataSource: 'mock' as const,
+        props
+      }
+    })
+    
+    // Add "Execute Service" button at the end (before success banner if exists)
+    const hasSuccessBanner = legoComponents.some(c => c.id === 'success-banner')
+    const insertIndex = hasSuccessBanner ? legoComponents.length - 1 : legoComponents.length
+    
+    legoComponents.splice(insertIndex, 0, {
+      id: 'action-button',
+      uniqueId: Date.now() + 9999,
+      name: 'Виконати послугу',
+      category: 'form',
+      dataSource: 'mock' as const,
+      props: {
+        text: 'Виконати послугу',
+        variant: 'primary'
+      }
+    })
+    
+    // Store in localStorage for LEGO page to pick up
+    localStorage.setItem('lego_import_flow', JSON.stringify(legoComponents))
+    
+    // Navigate to LEGO
+    router.push('/lego')
   }
 
   const handleProcess = async () => {
@@ -46,7 +203,7 @@ Key Steps:
 
   return (
     <div className="container mx-auto p-6 max-w-5xl">
-      <Header title="UX Pipeline" showBack />
+      <h1 className="text-3xl font-bold mb-6">🚀 UX Pipeline</h1>
       
       <div className="flex gap-2 border-b border-gray-200 dark:border-gray-800 mb-8">
         {['input', 'parsed', 'flows'].map((tab) => (
@@ -242,7 +399,12 @@ Key Steps:
                     >
                       💾
                     </button>
-                    <button className="text-blue-500 hover:underline">View →</button>
+                    <button 
+                      onClick={() => handleViewFlow(flow)}
+                      className="text-blue-500 hover:underline"
+                    >
+                      View →
+                    </button>
                   </div>
                 </div>
               </div>

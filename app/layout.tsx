@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { DevPanel } from "@/components/dev-panel";
-import { GlobalNav } from "@/components/global-nav";
+import { BackgroundGlow } from "@/components/ui/background-glow";
 
 export const viewport: Viewport = {
   themeColor: '#000000',
@@ -37,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="uk" className="dark">
+    <html lang="uk" className="dark" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -65,7 +65,7 @@ export default function RootLayout({
         />
       </head>
       <body className="font-['Inter'] antialiased bg-black text-white" suppressHydrationWarning>
-        <GlobalNav />
+        <BackgroundGlow />
         {children}
         <DevPanel />
       </body>

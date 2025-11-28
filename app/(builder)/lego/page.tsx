@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ComponentLibrary } from '@/components/lego-diia/component-library'
 import { Canvas } from '@/components/lego-diia/canvas'
 import { PropertyEditor } from '@/components/lego-diia/property-editor'
@@ -9,13 +9,31 @@ import { useLegoStore } from '@/lib/stores/lego-store'
 import { buildService, type LegoMode } from '@/lib/lego/dual-mode-builder'
 
 export default function LegoPage() {
-  const { items: canvasItems, addItem, removeItem, updateItem } = useLegoStore()
+  const { items: canvasItems, addItem, removeItem, updateItem, setItems } = useLegoStore()
   const [draggedItem, setDraggedItem] = useState<string | null>(null)
   const [selectedItem, setSelectedItem] = useState<any | null>(null)
   const [isExecuting, setIsExecuting] = useState(false)
   const [executionResult, setExecutionResult] = useState<any>(null)
   const [mode, setMode] = useState<LegoMode>('hackathon')
   const [exportResult, setExportResult] = useState<any>(null)
+
+  // Import flow from Pipeline
+  useEffect(() => {
+    const importedFlow = localStorage.getItem('lego_import_flow')
+    if (importedFlow) {
+      try {
+        const components = JSON.parse(importedFlow)
+        if (Array.isArray(components) && components.length > 0) {
+          setItems(components)
+          
+          // Clear storage to prevent re-import on refresh
+          localStorage.removeItem('lego_import_flow')
+        }
+      } catch (e) {
+        console.error('Failed to import flow:', e)
+      }
+    }
+  }, [setItems])
 
   const handleDragStart = (id: string) => {
     setDraggedItem(id)
@@ -26,11 +44,22 @@ export default function LegoPage() {
     
     const component = componentRegistry.get(draggedItem)
     if (component) {
+      // Extract only simple props, not the PropDefinition objects
+      const simpleProps: Record<string, any> = {}
+      if (component.props) {
+        Object.keys(component.props).forEach(key => {
+          const propDef = component.props[key]
+          simpleProps[key] = propDef.default || ''
+        })
+      }
+      
       const newItem = {
-        ...component,
+        id: component.id,
         uniqueId: Date.now(),
+        name: component.name,
+        category: component.category,
         dataSource: 'mock' as const,
-        config: {},
+        props: simpleProps,
       }
       addItem(newItem as any)
       setSelectedItem(newItem)

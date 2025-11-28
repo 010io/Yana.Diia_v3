@@ -16,43 +16,67 @@ export class MockLLMProvider {
     
     'generate-flows': [
       {
-        id: 'flow-minimal',
-        name: 'Мінімальний (3 кроки)',
+        id: 'flow-warm-winter',
+        name: 'Тепла Зима 6500 грн (реальний)',
         steps: [
+          { 
+            screen: 'intro', 
+            type: 'info',
+            component: 'IntroCard',
+            description: 'Державна програма «Тепла зима» – одноразова грошова допомога 6500 грн',
+            required: false
+          },
           { 
             screen: 'auth', 
             type: 'diia_signature',
             component: 'DiiaSignatureButton',
+            description: 'Підпис документів через Дія.Підпис',
             required: true
           },
           { 
-            screen: 'amount', 
+            screen: 'recipient', 
+            type: 'review',
+            component: 'ProfileCard',
+            description: 'Виберіть отримувача виплати',
+            required: true
+          },
+          { 
+            screen: 'bank', 
             type: 'input',
-            component: 'AmountInput',
+            component: 'BankAccountForm',
+            description: 'Дані Дія.Картки для отримання коштів',
+            required: true
+          },
+          { 
+            screen: 'confirm', 
+            type: 'review',
+            component: 'SummaryCard',
+            description: 'Перевірте дані перед відправкою',
             required: true
           },
           { 
             screen: 'success', 
             type: 'result',
             component: 'SuccessBanner',
+            description: 'Заявку успішно подано! Очікуйте на виплату протягом 10 днів.',
             required: true
           }
         ],
-        estimatedTime: 45,
-        score: 92
+        estimatedTime: 120,
+        score: 95
       },
       {
-        id: 'flow-standard',
-        name: 'Стандартний (5 кроків)',
+        id: 'flow-car-registration',
+        name: 'Реєстрація авто (швидкий)',
         steps: [
-          { screen: 'auth', type: 'diia_signature', component: 'DiiaSignatureButton', required: true },
-          { screen: 'profile', type: 'review', component: 'ProfileCard', required: false },
-          { screen: 'amount', type: 'input', component: 'AmountInput', required: true },
-          { screen: 'confirm', type: 'review', component: 'SummaryCard', required: true },
-          { screen: 'success', type: 'result', component: 'SuccessBanner', required: true }
+          { screen: 'intro', type: 'info', component: 'IntroCard', description: 'Реєстрація транспортного засобу в Дії', required: false },
+          { screen: 'auth', type: 'diia_signature', component: 'DiiaSignatureButton', description: 'Авторизація через Дія.Підпис', required: true },
+          { screen: 'car_data', type: 'input', component: 'AmountInput', description: 'Введіть номерний знак та VIN-код', required: true },
+          { screen: 'payment', type: 'payment', component: 'Payment', description: 'Оплата держмита 250 грн', required: true },
+          { screen: 'success', type: 'result', component: 'SuccessBanner', description: 'Авто зареєстровано! Техпаспорт у розділі Документи', required: true }
         ],
         estimatedTime: 90,
-        score: 85
+        score: 88
       },
       {
         id: 'flow-educational',

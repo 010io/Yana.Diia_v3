@@ -8,8 +8,7 @@ export default function Hero() {
   return (
     <section className="relative pt-32 pb-16 md:pt-48 md:pb-24 px-4 md:px-6 overflow-hidden">
       <div className="absolute inset-0 -z-10">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl opacity-50 animate-pulse" />
-        <div className="absolute bottom-20 right-10 w-80 h-80 bg-accent/10 rounded-full blur-3xl opacity-50 animate-pulse" style={{ animationDelay: '0.5s' }} />
+        {/* Background glow is now handled globally */}
       </div>
 
       <div className="max-w-4xl mx-auto text-center space-y-8">

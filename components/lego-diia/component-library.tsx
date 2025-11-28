@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { componentRegistry, ComponentCategory } from '@/lib/lego/component-registry'
 
 interface ComponentLibraryProps {
@@ -11,8 +11,12 @@ export function ComponentLibrary({ onDragStart }: ComponentLibraryProps) {
   const [filter, setFilter] = useState('')
   const [activeCategory, setActiveCategory] = useState<ComponentCategory | 'all'>('all')
   
-  // Get all components from registry
-  const allComponents = useMemo(() => componentRegistry.getAll(), [])
+  // Get all components from registry (client-side only to avoid hydration mismatch)
+  const [allComponents, setAllComponents] = useState<any[]>([])
+
+  useEffect(() => {
+    setAllComponents(componentRegistry.getAll())
+  }, [])
   
   // Get unique categories
   const categories: (ComponentCategory | 'all')[] = useMemo(() => {
